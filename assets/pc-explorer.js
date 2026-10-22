@@ -18,8 +18,8 @@ async function refresh(e){
 const grid=e.querySelector('#explorerFiles'),crumb=e.querySelector('#explorerBreadcrumb'),info=e.querySelector('#explorerInfo');if(!grid)return;
 setFolderButtons(e);
 if(currentHandle){
-const path=handleStack.map(h=>h.name).join(' / ');
-crumb.textContent=(rootHandle?.name||'Thư mục thật')+' / '+path;
+const path=handleStack.slice(1).map(h=>h.name).join(' / ');
+crumb.textContent=(rootHandle?.name||'Thư mục thật')+(path?' / '+path:'');
 const items=[];
 try{for await(const [name,handle] of currentHandle.entries()){let size='Thư mục thật';if(handle.kind==='file'){try{const f=await handle.getFile();size=(f.size/1024).toFixed(1)+' KB'}catch{size='Tệp thật'}}items.push({name,icon:handle.kind==='directory'?'📁':'📄',kind:handle.kind==='directory'?'real-folder':'real-file',handle,detail:size})}}catch(err){msg(e,'Không liệt kê được thư mục: '+err.message)}
 items.sort((a,b)=>a.kind===b.kind?a.name.localeCompare(b.name):a.kind==='real-folder'?-1:1);
@@ -50,7 +50,7 @@ async function openPickedFile(e,file){if(file.size>2*1024*1024){msg(e,'Tệp l�
 function bind(e){
 e.addEventListener('click',async ev=>{
 const folder=ev.target.closest('[data-explorer-folder]');
-if(folder){currentFolder=folder.dataset.explorerFolder;if(rootHandle&&currentFolder!=='Real files'){rootHandle=null;currentHandle=null;handleStack=[]}await refresh(e);return}
+if(folder){const chosen=folder.dataset.explorerFolder;if(chosen==='Real files'){if(rootHandle){currentFolder='Real files';currentHandle=rootHandle;handleStack=[rootHandle]}else{currentFolder='This PC';await chooseFolder(e);return}}else{currentFolder=chosen;if(rootHandle){rootHandle=null;currentHandle=null;handleStack=[]}}await refresh(e);return}
 const action=ev.target.closest('[data-explorer-action]');
 if(action){switch(action.dataset.explorerAction){case'choose-folder':await chooseFolder(e);return;case'choose-files':await openFallback(e);return;case'new-file':await createFile(e);return;case'refresh':await refresh(e);return;case'parent':if(handleStack.length>1){handleStack.pop();currentHandle=handleStack[handleStack.length-1];await refresh(e)}else msg(e,'Đã ở thư mục gốc đã cấp quyền.');return}}
 const real=ev.target.closest('[data-real-kind]');
