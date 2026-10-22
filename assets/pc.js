@@ -4,7 +4,7 @@ const $=id=>document.getElementById(id);
 const STORE=window.MYOPCStorage;
 const defaults={...STORE.defaults};
 let cfg=STORE.getConfig(),profiles=STORE.getProfiles(),currentProfile=null,windows={},activeApp=null,z=20,drag=null,openedFile=null,fullscreenWasRequested=false;
-const apps={chrome:{title:'Google Chrome',icon:'🌐',w:1000,h:690},explorer:{title:'File Explorer',icon:'📁',w:880,h:600},settings:{title:'Cài đặt',icon:'⚙️',w:850,h:650},taskmgr:{title:'Task Manager',icon:'📊',w:800,h:600},games:{title:'Game Hub · PC Windows',icon:'🎮',w:930,h:650},thispc:{title:'This PC',icon:'💻',w:720,h:530},notepad:{title:'Notepad',icon:'📝',w:800,h:600},recycle:{title:'Recycle Bin',icon:'🗑️',w:600,h:440},about:{title:'Thông tin PC',icon:'ℹ️',w:730,h:560}};
+const apps={chrome:{title:'Google Chrome',icon:'🌐',w:1000,h:690},explorer:{title:'File Explorer',icon:'📁',w:880,h:600},settings:{title:'Cài đặt',icon:'⚙️',w:850,h:650},taskmgr:{title:'Task Manager',icon:'📊',w:800,h:600},games:{title:'Game Hub · PC Windows',icon:'🎮',w:930,h:650},thispc:{title:'This PC',icon:'💻',w:720,h:530},notepad:{title:'Notepad',icon:'📝',w:800,h:600},recycle:{title:'Recycle Bin',icon:'🗑️',w:600,h:440},software:{title:'Ứng dụng có sẵn',icon:'🛍️',w:940,h:680},downloads:{title:'PC Downloads',icon:'⬇️',w:930,h:640},about:{title:'Thông tin PC',icon:'ℹ️',w:730,h:560}};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const GPU=window.MYOPCApps.gpuNames,RES=window.MYOPCApps.resolutions;
 function notify(s){const t=$('toast');t.textContent=s;t.classList.add('show');clearTimeout(notify.timer);notify.timer=setTimeout(()=>t.classList.remove('show'),4200)}
@@ -42,6 +42,7 @@ function bindNotepadAction(action,e){if(action==='save-notes')saveNotes();else i
 function openGameInfo(id){const g=(window.MYO_GAMES||[]).find(x=>x.id===id);if(!g)return;notify(g.name+' · '+g.genre+' · '+g.publisher+'. Nguồn tải nằm ở nút bên cạnh.')}
 function handleAction(action,button){
 const app=button.dataset.window||activeApp;
+if(window.MYOPCDownloads?.handle(action,button))return;
 switch(action){
 case'close':closeApp(app);break;case'min':minimize(app);break;case'max':maximize(app);break;
 case'game-source':{const g=(window.MYO_GAMES||[]).find(x=>x.id===button.dataset.gameId);if(g)window.MYOPCBrowser.openUrl(g.source,g.name+' · '+g.publisher);break}
