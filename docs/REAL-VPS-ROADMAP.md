@@ -1,7 +1,15 @@
-# Windows VPS deployment
+# Windows VPS
 
-Implemented: Windows 11 QEMU/KVM guest with persistent named disk; Caddy HTTPS + Basic Auth; private console port; loopback disk API; bootstrap-generated credentials; website portal that connects to an already deployed VM. No host/client PC directories are mounted into the Windows guest.
+The intended runtime is a real Windows 11 guest, started by Docker/QEMU with KVM on a cloud Linux host. The webpage only routes the user to the remote console; it is not an OS emulator and does not provide compute by itself.
 
-Default guest allocation: 6 vCPU, 16 GB RAM and a 256 GB virtual disk. Recommended physical host: Linux x86_64 with KVM/TUN and roughly 32 GB RAM or more, 8 vCPU or more, ample SSD, public DNS and TCP ports 80/443. Adjust the guest allocation in `.env` to fit the host.
+## Runtime configuration
 
-GitHub/Vercel do not provision the host machine. GPU passthrough is not configured. Windows activation/licensing must be legitimate.
+- Guest allocation: 6 vCPU, 16 GB RAM and a 256 GB persistent virtual disk.
+- Linux host: x86_64; KVM and TUN device nodes required.
+- Remote connection: Caddy HTTPS + Basic Auth; the Windows console port remains private.
+- Data: Windows apps and files live on named volume `myo_windows_storage`.
+- Installation: `install-vps.sh` runs on the cloud Linux host and invokes the bootstrap script.
+
+## Important constraints
+
+A KVM-capable cloud server must be provisioned through an infrastructure provider. Vercel's website hosting is separate and cannot turn the web project into a Windows VM. GPU passthrough and multi-user hosting are outside this setup.
