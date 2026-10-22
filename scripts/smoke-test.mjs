@@ -18,6 +18,9 @@ const context={window:{}};vm.runInNewContext(read('assets/games.js'),context);
 const games=context.window.MYO_GAMES;
 assert.ok(Array.isArray(games)&&games.length>=10,'Expected at least 10 starter PC game records');
 for(const game of games){assert.ok(/^https:\/\//.test(game.source),'Game source must be HTTPS: '+game.name);assert.ok(game.name&&game.publisher&&game.genre,'Incomplete game entry: '+game.name)}
-for(const line of read('sw.js').matchAll(/'\/(.*?)'/g)){const item=line[1];if(item==='')continue;const mapped=item==='/'?'index.html':item;assert.ok(fs.existsSync(path.join(root,mapped)),'Service worker cache entry missing: '+mapped)}
+const coreMatch=read('sw.js').match(/const CORE=\[([\s\S]*?)\];/);
+assert.ok(coreMatch,'Service worker CORE cache list not found');
+for(const match of coreMatch[1].matchAll(/'([^']+)'/g)){const item=match[1];const mapped=item==='/'?'index.html':item.replace(/^\/+/, '');assert.ok(fs.existsSync(path.join(root,mapped)),'Service worker cache entry missing: '+mapped)}
+
 console.log('M-Y-O smoke checks passed.');
 console.log('Validated pages, local assets, JavaScript syntax, manifest and '+games.length+' HTTPS game sources.');
