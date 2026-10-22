@@ -46,7 +46,7 @@ async function handle(req,res){
  if(resource==='files'&&req.method==='GET'){
   let vpath;try{vpath=normalizeVirtualPath(url.searchParams.get('path')||'/')}catch(e){error(res,400,e.message);return}
   const {target}=resolveFile(id,vpath);let st;try{st=await fs.stat(target)}catch{error(res,404,'File or directory not found');return}
-  if(st.isDirectory()){const items=[];for(const e of await fs.readdir(target,{withFileTypes:true})){const full=path.join(target,e.name),s=await fs.stat(full);items.push({name:e.name,type:e.isDirectory()?'directory':'file',size:e.isFile()?s.size:0,updatedAt:s.mtime.toISOString()})}json(res,200,{ok:true,disk:{id:disk.id,name:disk.name},path:vpath,items});return}
+  if(st.isDirectory()){const items=[];for(const e of await fs.readdir(target,{withFileTypes:true})){if(e.name==='disk.json'||e.name.endsWith('.tmp'))continue;const full=path.join(target,e.name),st=await fs.stat(full);items.push({name:e.name,type:e.isDirectory()?'directory':'file',size:e.isFile()?st.size:0,updatedAt:st.mtime.toISOString()})}json(res,200,{ok:true,disk:{id:disk.id,name:disk.name},path:vpath,items});return}
   if(!st.isFile()){error(res,400,'Unsupported filesystem object');return}
   res.writeHead(200,{'content-type':'application/octet-stream','content-length':st.size,'content-disposition':`attachment; filename*=UTF-8''${encodeURIComponent(path.basename(target))}`,'x-content-type-options':'nosniff','cache-control':'no-store'});res.end(await fs.readFile(target));return
  }
