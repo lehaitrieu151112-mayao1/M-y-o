@@ -1,0 +1,20 @@
+window.MYO_SOFTWARE = [
+{id:"chrome",name:"Google Chrome",publisher:"Google",category:"Trình duyệt",icon:"🌐",source:"https://www.google.com/chrome/",description:"Trình duyệt web chính thức.",platform:"Windows 10/11",builtin:true},
+{id:"steam",name:"Steam",publisher:"Valve",category:"Game launcher",icon:"🎮",source:"https://store.steampowered.com/about/",description:"Cửa hàng game PC và ứng dụng quản lý thư viện game.",platform:"Windows 10/11"},
+{id:"epic",name:"Epic Games Launcher",publisher:"Epic Games",category:"Game launcher",icon:"🕹️",source:"https://store.epicgames.com/en-US/download",description:"Launcher và cửa hàng Epic Games.",platform:"Windows 10/11"},
+{id:"riot",name:"Riot Client",publisher:"Riot Games",category:"Game launcher",icon:"⚔️",source:"https://www.riotgames.com/",description:"Cổng cài đặt game của Riot Games.",platform:"Windows 10/11"},
+{id:"ea",name:"EA app",publisher:"Electronic Arts",category:"Game launcher",icon:"🟦",source:"https://www.ea.com/ea-app",description:"Quản lý game của Electronic Arts.",platform:"Windows"},
+{id:"ubisoft",name:"Ubisoft Connect",publisher:"Ubisoft",category:"Game launcher",icon:"🔷",source:"https://ubisoftconnect.com/",description:"Launcher game Ubisoft.",platform:"Windows 10/11"},
+{id:"battlenet",name:"Battle.net",publisher:"Blizzard Entertainment",category:"Game launcher",icon:"❄️",source:"https://download.battle.net/",description:"Launcher cho game Blizzard và một số game Activision.",platform:"Windows"},
+{id:"gog",name:"GOG GALAXY",publisher:"GOG",category:"Game launcher",icon:"🌌",source:"https://www.gog.com/galaxy",description:"Ứng dụng quản lý thư viện game GOG.",platform:"Windows"},
+{id:"discord",name:"Discord",publisher:"Discord Inc.",category:"Liên lạc",icon:"💬",source:"https://discord.com/download",description:"Chat thoại và văn bản cho cộng đồng game.",platform:"Windows 10/11"},
+{id:"vlc",name:"VLC media player",publisher:"VideoLAN",category:"Tiện ích",icon:"🎬",source:"https://www.videolan.org/vlc/",description:"Trình phát media mã nguồn mở.",platform:"Windows"},
+{id:"7zip",name:"7-Zip",publisher:"7-Zip",category:"Tiện ích",icon:"🗜️",source:"https://www.7-zip.org/",description:"Công cụ nén và giải nén tệp.",platform:"Windows"},
+{id:"obs",name:"OBS Studio",publisher:"OBS Project",category:"Streaming",icon:"📹",source:"https://obsproject.com/download",description:"Phần mềm quay màn hình và livestream.",platform:"Windows 10/11"},
+{id:"github-desktop",name:"GitHub Desktop",publisher:"GitHub",category:"Lập trình",icon:"🐙",source:"https://desktop.github.com/",description:"Quản lý Git repository bằng giao diện đồ họa.",platform:"Windows 10/11"},
+{id:"nvidia-app",name:"NVIDIA App",publisher:"NVIDIA",category:"Driver / GPU",icon:"🟩",source:"https://www.nvidia.com/en-us/software/nvidia-app/",description:"Quản lý driver và các tính năng GPU NVIDIA.",platform:"Windows"},
+{id:"powertoys",name:"Microsoft PowerToys",publisher:"Microsoft",category:"Tiện ích",icon:"🧰",source:"https://learn.microsoft.com/en-us/windows/powertoys/",description:"Bộ tiện ích bổ sung cho Windows.",platform:"Windows 10/11"},
+{id:"vscode",name:"Visual Studio Code",publisher:"Microsoft",category:"Lập trình",icon:"💻",source:"https://code.visualstudio.com/",description:"Trình soạn thảo mã nguồn.",platform:"Windows"},
+{id:"edge",name:"Microsoft Edge",publisher:"Microsoft",category:"Trình duyệt",icon:"🌊",source:"https://www.microsoft.com/edge/download",description:"Trình duyệt Microsoft; thường có sẵn trên Windows 10/11.",platform:"Windows 10/11",builtin:true},
+{id:"notepad",name:"Notepad",publisher:"Microsoft",category:"Công cụ hệ thống",icon:"📝",source:"https://apps.microsoft.com/",description:"Công cụ ghi chú đơn giản. Workspace có trình soạn thảo demo tích hợp.",platform:"Windows 10/11",builtin:true}
+];
