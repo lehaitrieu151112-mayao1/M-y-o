@@ -6,9 +6,9 @@ services:
     # Guest disk only; do not mount host or client filesystem paths.
     environment:
       VERSION: "11"
-      RAM_SIZE: "${MYO_VM_RAM:-8G}"
-      CPU_CORES: "${MYO_VM_CPU_CORES:-4}"
-      DISK_SIZE: "${MYO_VM_DISK_SIZE:-128G}"
+      RAM_SIZE: "${MYO_VM_RAM:-16G}"
+      CPU_CORES: "${MYO_VM_CPU_CORES:-6}"
+      DISK_SIZE: "${MYO_VM_DISK_SIZE:-256G}"
       USERNAME: "${MYO_WINDOWS_USER:-myo}"
       PASSWORD: ${MYO_WINDOWS_PASSWORD:?Run scripts/bootstrap-windows-pc.sh first}
       LANGUAGE: "${MYO_WINDOWS_LANGUAGE:-English}"
