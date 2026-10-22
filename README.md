@@ -20,6 +20,10 @@ M-Y-O is a Vietnamese-first web application with a PC game catalogue and an inte
 - Notepad storing text locally, downloading `.txt` files, or saving through an explicit file-save dialog.
 - Installable/offline-capable PWA shell via web manifest and service worker.
 
+- `assets/software-apps.js` — official Windows application catalog.
+- `assets/pc-downloads.js` — local download log, `.url` shortcuts, file metadata import and manifest export.
+- `downloads/` — official application/game catalogs and Windows Internet Shortcut files, committed to GitHub.
+
 ## Important capability boundary
 The “Create PC” page currently creates a **local browser profile and simulated desktop**, not a real Windows VPS. The selected vCPU/GPU/RAM/SSD values are a configuration profile only; they do not allocate compute, create a Windows installation, or run Windows executables. A real cloud gaming VPS needs a GPU-capable host, Windows image/licensing, networking/remote display/input, storage, access controls, and spending limits. No paid compute is provisioned by this repository.
 
