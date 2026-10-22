@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-22 — PC configuration UI
+- Added a PC configuration form shown by the Add PC button; each save creates exactly one separately editable configuration.
+- Persisted configuration records in browser local storage with edit/delete controls and explicit non-provisioned status.
+- Added smoke-test coverage for the PC configuration interface.
+
+
 ## 2026-10-22 — Windows VPS deployment
 - Set the site focus to a real Windows 11 VM running on a separate KVM-capable cloud host.
 - Added a cloud-host installer and documented resource requirements, HTTPS gateway, private credentials and persistent Windows storage.
