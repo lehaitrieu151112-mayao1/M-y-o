@@ -1,21 +1,27 @@
 # Development notes
 
-## Local portal
+## Review the website
 
-From the repository root, run:
+The static pages can be previewed locally with `python -m http.server 8080`, but that only previews the website and does not start Windows. An actual Windows desktop needs the cloud-host install below.
 
-```sh
-python -m http.server 8080
+## Run on the cloud host
+
+Use Ubuntu/Debian Linux x86_64 from a provider that permits KVM and TUN. Point a public DNS hostname to its public IP; allow inbound TCP 80/443 and UDP 443. From that host's SSH/web console:
+
+```bash
+curl -fsSLO https://raw.githubusercontent.com/lehaitrieu151112-mayao1/M-y-o/main/install-vps.sh
+sudo bash install-vps.sh pc.example.com
 ```
 
-Open `http://localhost:8080`. The portal and connection form can be reviewed without starting a VM. Entering a public VPS address only works after the Windows VM host has been deployed and HTTPS is available.
-
-## Windows VM deployment
-
-- `compose.yaml` defines the Windows 11 VM, private Caddy gateway and persistent disk API.
-- `scripts/bootstrap-windows-pc.sh` checks prerequisites, writes private credentials to `.env`, validates Compose and starts the services.
-- `cloud-pc/WINDOWS-VPS.md` lists host requirements, data persistence and security limits.
+The script checks the physical host, installs Docker if needed, downloads this repo and starts the real Windows 11 VM with a persistent guest disk and an authenticated HTTPS gateway.
 
 ## Checks
 
-Run `node scripts/smoke-test.mjs`, `npm --prefix server run check`, and `docker compose config --quiet`. GitHub Actions runs the source checks and Compose validation on pushes and pull requests to `main`.
+```bash
+node scripts/smoke-test.mjs
+bash -n install-vps.sh
+bash -n scripts/bootstrap-windows-pc.sh
+docker compose config --quiet
+```
+
+GitHub Actions runs source validation after pushes to `main`.
