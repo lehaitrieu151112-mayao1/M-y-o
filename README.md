@@ -22,9 +22,9 @@ These are VM allocations, not resources provided by GitHub or Vercel. Recommende
    sudo bash install-vps.sh pc.example.com
    ```
 
-The installer checks the host resources and KVM/TUN, installs Docker on supported Ubuntu/Debian hosts when needed, fetches this repository, creates private random credentials, and launches the Windows 11 VM plus HTTPS gateway. It refuses to uninstall conflicting container packages or stop services already using web ports.
+The installer checks host resources and KVM/TUN, installs Docker on supported Ubuntu/Debian hosts when needed, fetches this repository, creates private random credentials, and launches the default Windows 11 VM, a private VM manager API, and the HTTPS gateway. It refuses to uninstall conflicting container packages or stop services already using web ports.
 
-Save the gateway and Windows credentials printed in the cloud server terminal. First boot may take 10–40 minutes or longer. Then open `https://pc.example.com`, sign in to the gateway, and use the Windows desktop presented by the actual VM.
+Create a wildcard DNS record `*.pc.example.com` pointing to the same VPS IP (replace the example base domain with your own). Save the gateway and Windows credentials printed in the cloud server terminal. First boot may take 10–40 minutes or longer. Open `https://pc.example.com/manage/`, sign in with the gateway credentials, and use **Tạo PC thật** to create another Windows VM. Each managed VM gets a private persistent disk and a per-PC HTTPS URL. All managed PCs run on this same host; the manager checks host CPU/RAM capacity before creating a VM.
 
 ## Persistence and security
 
