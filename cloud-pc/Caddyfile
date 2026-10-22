@@ -1,0 +1,7 @@
+{$MYO_DOMAIN} {
+    encode zstd gzip
+    basic_auth {
+        {$MYO_PROXY_USER} {$MYO_PROXY_PASSWORD_HASH}
+    }
+    reverse_proxy windows-vm:8006
+}

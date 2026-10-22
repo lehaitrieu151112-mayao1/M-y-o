@@ -10,21 +10,31 @@ jobs:
   smoke-test:
     runs-on: ubuntu-latest
     env:
+      MYO_DOMAIN: pc.example.com
+      MYO_PROXY_USER: ci-user
+      MYO_PROXY_PASSWORD: ci-only-password-not-for-production
+      MYO_PROXY_PASSWORD_HASH: '$2a$14$ci-placeholder-hash-only'
+      MYO_WINDOWS_USER: ciuser
+      MYO_WINDOWS_PASSWORD: ci-windows-only-password
+      MYO_VM_RAM: 8G
+      MYO_VM_CPU_CORES: "4"
+      MYO_VM_DISK_SIZE: 128G
+      MYO_WINDOWS_LANGUAGE: English
+      MYO_WINDOWS_REGION: en-US
+      MYO_WINDOWS_KEYBOARD: en-US
       MYO_SERVER_TOKEN: test-token-not-for-production-0000000000000000000000
-      MYO_PC_USER: ci-user
-      MYO_PC_PASSWORD: ci-only-password-not-for-production
-      MYO_PC_PORT: "13000"
-      PUID: "1000"
-      PGID: "1000"
+      MYO_CORS_ORIGIN: ""
+      MYO_MAX_FILE_BYTES: "67108864"
+      MYO_DEFAULT_DISK_QUOTA_BYTES: "1073741824"
       TZ: Asia/Ho_Chi_Minh
     steps:
-      - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           persist-credentials: false
-      - name: Check JavaScript and project assets
+      - name: Source and API tests
         run: |
           node scripts/smoke-test.mjs
+          bash -n scripts/bootstrap-windows-pc.sh
           npm --prefix server run check
-      - name: Validate Docker Compose configuration
+      - name: Compose validation
         run: docker compose config --quiet

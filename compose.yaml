@@ -1,4 +1,51 @@
 services:
+  windows-vm:
+    image: dockurr/windows:latest
+    container_name: myo-windows-vm
+    restart: unless-stopped
+    # Guest disk only; do not mount host or client filesystem paths.
+    environment:
+      VERSION: "11"
+      RAM_SIZE: "${MYO_VM_RAM:-8G}"
+      CPU_CORES: "${MYO_VM_CPU_CORES:-4}"
+      DISK_SIZE: "${MYO_VM_DISK_SIZE:-128G}"
+      USERNAME: "${MYO_WINDOWS_USER:-myo}"
+      PASSWORD: ${MYO_WINDOWS_PASSWORD:?Run scripts/bootstrap-windows-pc.sh first}
+      LANGUAGE: "${MYO_WINDOWS_LANGUAGE:-English}"
+      REGION: "${MYO_WINDOWS_REGION:-en-US}"
+      KEYBOARD: "${MYO_WINDOWS_KEYBOARD:-en-US}"
+      TPM: "Y"
+    devices:
+      - /dev/kvm:/dev/kvm
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    shm_size: "1gb"
+    stop_grace_period: 2m
+    volumes:
+      - myo_windows_storage:/storage
+    networks: [myo_internal]
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: myo-windows-gateway
+    restart: unless-stopped
+    depends_on:
+      - windows-vm
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      MYO_DOMAIN: ${MYO_DOMAIN:?Run scripts/bootstrap-windows-pc.sh with domain}
+      MYO_PROXY_USER: ${MYO_PROXY_USER:-myo}
+      MYO_PROXY_PASSWORD_HASH: ${MYO_PROXY_PASSWORD_HASH:?Run bootstrap to generate hash}
+    volumes:
+      - ./cloud-pc/Caddyfile:/etc/caddy/Caddyfile:ro
+      - myo_caddy_data:/data
+      - myo_caddy_config:/config
+    networks: [myo_internal]
+
   myo-disk-server:
     build:
       context: ./server
@@ -10,7 +57,7 @@ services:
       PORT: "8787"
       NODE_ENV: "production"
       MYO_DATA_DIR: "/data"
-      MYO_SERVER_TOKEN: ${MYO_SERVER_TOKEN:?Set MYO_SERVER_TOKEN in .env}
+      MYO_SERVER_TOKEN: ${MYO_SERVER_TOKEN:?Set MYO_SERVER_TOKEN}
       MYO_CORS_ORIGIN: ${MYO_CORS_ORIGIN:-}
       MYO_MAX_FILE_BYTES: ${MYO_MAX_FILE_BYTES:-67108864}
       MYO_DEFAULT_DISK_QUOTA_BYTES: ${MYO_DEFAULT_DISK_QUOTA_BYTES:-1073741824}
@@ -18,8 +65,7 @@ services:
       - myo_disk_data:/data
     security_opt:
       - no-new-privileges:true
-    cap_drop:
-      - ALL
+    cap_drop: [ALL]
     read_only: true
     tmpfs:
       - /tmp:size=32m,mode=1777
@@ -28,39 +74,18 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
+    networks: [myo_internal]
 
-  myo-linux-pc:
-    build:
-      context: ./cloud-pc
-      dockerfile: Dockerfile
-    image: myo-linux-pc:local
-    container_name: myo-linux-pc
-    restart: unless-stopped
-    shm_size: "1gb"
-    ports:
-      - "127.0.0.1:${MYO_PC_PORT:-13000}:3000"
-    environment:
-      PUID: "${PUID:-1000}"
-      PGID: "${PGID:-1000}"
-      TZ: "${TZ:-Asia/Ho_Chi_Minh}"
-      TITLE: "M-Y-O Cloud PC"
-      CUSTOM_USER: "${MYO_PC_USER:-myo}"
-      PASSWORD: ${MYO_PC_PASSWORD:?Set MYO_PC_PASSWORD in .env}
-      FM_HOME: "/config/Downloads"
-    volumes:
-      - myo_pc_config:/config
-      - myo_pc_shared:/shared
-    healthcheck:
-      test: ["CMD-SHELL", 'curl -fsSI --max-time 8 -u "$${CUSTOM_USER}:$${PASSWORD}" http://127.0.0.1:3000/ >/dev/null']
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 120s
+networks:
+  myo_internal:
+    driver: bridge
 
 volumes:
+  myo_windows_storage:
+    name: myo_windows_storage
+  myo_caddy_data:
+    name: myo_caddy_data
+  myo_caddy_config:
+    name: myo_caddy_config
   myo_disk_data:
     name: myo_disk_data
-  myo_pc_config:
-    name: myo_pc_config
-  myo_pc_shared:
-    name: myo_pc_shared

@@ -14,3 +14,6 @@ Thumbs.db
 *.key
 *.p12
 *.pfx
+
+# Runtime-generated secrets/config
+.runtime/
