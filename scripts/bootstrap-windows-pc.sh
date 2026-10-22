@@ -39,10 +39,6 @@ read_env() {
   value="${value#\'}"; value="${value%\'}"; value="${value#\"}"; value="${value%\"}"
   printf "%s" "$value"
 }
-ensure_secret_env MYO_SERVER_TOKEN "$(openssl rand -hex 32)"
-ensure_env MYO_CORS_ORIGIN ""
-ensure_env MYO_MAX_FILE_BYTES 67108864
-ensure_env MYO_DEFAULT_DISK_QUOTA_BYTES 1073741824
 ensure_env MYO_PROXY_USER myo
 ensure_secret_env MYO_PROXY_PASSWORD "$(openssl rand -hex 24)"
 ensure_env MYO_WINDOWS_USER myo
