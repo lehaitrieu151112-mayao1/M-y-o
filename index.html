@@ -48,9 +48,9 @@ a{color:#a9cdff}button,input{font:inherit}.shell{width:min(1120px,calc(100% - 32
 </section>
 <section class="section">
   <h2>Cài đặt trên VPS Linux</h2>
-  <p class="sub">Sau khi thuê host hỗ trợ KVM, cài Docker Engine/Compose v2, trỏ domain về IP host, rồi chạy các lệnh dưới đây trong SSH. Thay domain mẫu bằng domain thật của bạn.</p>
-  <code class="code">git clone https://github.com/lehaitrieu151112-mayao1/M-y-o.git<br>cd M-y-o<br>chmod +x scripts/bootstrap-windows-pc.sh<br>./scripts/bootstrap-windows-pc.sh pc.example.com</code>
-  <p class="sub">Script tạo mật khẩu ngẫu nhiên, lưu trong file .env có quyền riêng tư và khởi động Windows VM + cổng HTTPS. Lưu credentials được in ra terminal. Lần khởi động đầu có thể mất khá lâu để hoàn tất cài đặt Windows.</p>
+  <p class="sub">Mở SSH hoặc web console của chính Linux VPS cloud (lệnh sẽ chạy trên máy chủ từ xa, không chạy trên PC cá nhân). Trỏ domain về IP VPS và thay domain mẫu bằng domain thật của bạn.</p>
+  <code class="code">curl -fsSLO https://raw.githubusercontent.com/lehaitrieu151112-mayao1/M-y-o/main/install-vps.sh<br>sudo bash install-vps.sh pc.example.com</code>
+  <p class="sub">Trình cài kiểm tra KVM và tài nguyên máy chủ, cài Docker nếu cần, tải mã nguồn, tạo mật khẩu riêng rồi khởi chạy Windows 11 VM và gateway HTTPS. Hãy lưu credentials in ra terminal. Lần cài Windows đầu tiên có thể mất 10–40 phút hoặc lâu hơn.</p>
   <a class="btn primary" href="pc.html">Mở trang kết nối và hướng dẫn →</a>
 </section>
 </main>
