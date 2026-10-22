@@ -16,9 +16,9 @@ jobs:
       MYO_PROXY_PASSWORD_HASH: '$2a$14$ci-placeholder-hash-only'
       MYO_WINDOWS_USER: ciuser
       MYO_WINDOWS_PASSWORD: ci-windows-only-password
-      MYO_VM_RAM: 8G
-      MYO_VM_CPU_CORES: "4"
-      MYO_VM_DISK_SIZE: 128G
+      MYO_VM_RAM: 16G
+      MYO_VM_CPU_CORES: "6"
+      MYO_VM_DISK_SIZE: 256G
       MYO_WINDOWS_LANGUAGE: English
       MYO_WINDOWS_REGION: en-US
       MYO_WINDOWS_KEYBOARD: en-US
