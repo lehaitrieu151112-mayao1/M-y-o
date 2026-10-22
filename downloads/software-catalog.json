@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "description": "Official Windows application source links; no binaries",
-  "generatedFrom": "assets/software-apps.js",
+  "description": "Curated official links for general-purpose Windows applications; no binaries",
+  "generatedFrom": "downloads/software-catalog.json",
   "apps": [
     {
       "id": "chrome",
@@ -12,76 +12,6 @@
       "source": "https://www.google.com/chrome/",
       "description": "Trình duyệt web chính thức.",
       "platform": "Windows 10/11"
-    },
-    {
-      "id": "steam",
-      "name": "Steam",
-      "publisher": "Valve",
-      "category": "Game launcher",
-      "icon": "🎮",
-      "source": "https://store.steampowered.com/about/",
-      "description": "Cửa hàng game PC và ứng dụng quản lý thư viện game.",
-      "platform": "Windows 10/11"
-    },
-    {
-      "id": "epic",
-      "name": "Epic Games Launcher",
-      "publisher": "Epic Games",
-      "category": "Game launcher",
-      "icon": "🕹️",
-      "source": "https://store.epicgames.com/en-US/download",
-      "description": "Launcher và cửa hàng Epic Games.",
-      "platform": "Windows 10/11"
-    },
-    {
-      "id": "riot",
-      "name": "Riot Client",
-      "publisher": "Riot Games",
-      "category": "Game launcher",
-      "icon": "⚔️",
-      "source": "https://www.riotgames.com/",
-      "description": "Cổng cài đặt game của Riot Games.",
-      "platform": "Windows 10/11"
-    },
-    {
-      "id": "ea",
-      "name": "EA app",
-      "publisher": "Electronic Arts",
-      "category": "Game launcher",
-      "icon": "🟦",
-      "source": "https://www.ea.com/ea-app",
-      "description": "Quản lý game của Electronic Arts.",
-      "platform": "Windows"
-    },
-    {
-      "id": "ubisoft",
-      "name": "Ubisoft Connect",
-      "publisher": "Ubisoft",
-      "category": "Game launcher",
-      "icon": "🔷",
-      "source": "https://ubisoftconnect.com/",
-      "description": "Launcher game Ubisoft.",
-      "platform": "Windows 10/11"
-    },
-    {
-      "id": "battlenet",
-      "name": "Battle.net",
-      "publisher": "Blizzard Entertainment",
-      "category": "Game launcher",
-      "icon": "❄️",
-      "source": "https://download.battle.net/",
-      "description": "Launcher cho game Blizzard và một số game Activision.",
-      "platform": "Windows"
-    },
-    {
-      "id": "gog",
-      "name": "GOG GALAXY",
-      "publisher": "GOG",
-      "category": "Game launcher",
-      "icon": "🌌",
-      "source": "https://www.gog.com/galaxy",
-      "description": "Ứng dụng quản lý thư viện game GOG.",
-      "platform": "Windows"
     },
     {
       "id": "discord",
