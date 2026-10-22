@@ -1,0 +1,28 @@
+services:
+  myo-disk-server:
+    build:
+      context: ./server
+    container_name: myo-disk-server
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8787:8787"
+    environment:
+      PORT: "8787"
+      NODE_ENV: "production"
+      MYO_DATA_DIR: "/data"
+      MYO_SERVER_TOKEN: ${MYO_SERVER_TOKEN:?Set a long random MYO_SERVER_TOKEN in .env}
+      MYO_CORS_ORIGIN: ${MYO_CORS_ORIGIN:-}
+      MYO_MAX_FILE_BYTES: ${MYO_MAX_FILE_BYTES:-67108864}
+      MYO_DEFAULT_DISK_QUOTA_BYTES: ${MYO_DEFAULT_DISK_QUOTA_BYTES:-1073741824}
+    volumes:
+      - myo_disk_data:/data
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+volumes:
+  myo_disk_data:
+    name: myo_disk_data
