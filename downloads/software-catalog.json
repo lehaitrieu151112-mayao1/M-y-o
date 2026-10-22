@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "description": "Curated official links for general-purpose Windows applications; no binaries",
+  "description": "Official source links for general-purpose Windows utilities; no binaries",
   "generatedFrom": "downloads/software-catalog.json",
   "apps": [
     {
@@ -20,7 +20,7 @@
       "category": "Liên lạc",
       "icon": "💬",
       "source": "https://discord.com/download",
-      "description": "Chat thoại và văn bản cho cộng đồng game.",
+      "description": "Ứng dụng trò chuyện bằng văn bản, giọng nói và video.",
       "platform": "Windows 10/11"
     },
     {
