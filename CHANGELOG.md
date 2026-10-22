@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-22 — Chuyển sang Windows VPS thông thường
+- Thay trang game hub bằng cổng kết nối Windows VPS và hướng dẫn triển khai host thật.
+- Xóa danh mục game, shortcut launcher game, asset game hub và script bootstrap desktop Linux cũ.
+- Đổi cấu hình VM mặc định thành 6 vCPU, 16 GB RAM và đĩa ảo 256 GB; có thể chỉnh theo tài nguyên host.
+- Cập nhật service worker, smoke tests và tài liệu triển khai/bảo mật.
+- Sửa bộ smoke test để quét JavaScript nội tuyến đúng cú pháp Node.js.
+
+## Lịch sử trước đó
 ## 2026-10-22
 - Split the public game library and PC workspace into separate pages.
 - Added a curated catalogue of PC games with HTTPS links to publisher/store pages.
@@ -12,3 +20,4 @@
 - Added explicitly permissioned File System Access API integration where supported.
 - Added PWA manifest, app icon, service worker and smoke checks.
 - Documented that the current free demo does not provision a real VPS or GPU.
+
