@@ -47,9 +47,9 @@ ensure_env MYO_PROXY_USER myo
 ensure_secret_env MYO_PROXY_PASSWORD "$(openssl rand -hex 24)"
 ensure_env MYO_WINDOWS_USER myo
 ensure_secret_env MYO_WINDOWS_PASSWORD "$(openssl rand -hex 24)"
-ensure_env MYO_VM_RAM 8G
-ensure_env MYO_VM_CPU_CORES 4
-ensure_env MYO_VM_DISK_SIZE 128G
+ensure_env MYO_VM_RAM 16G
+ensure_env MYO_VM_CPU_CORES 6
+ensure_env MYO_VM_DISK_SIZE 256G
 ensure_env MYO_WINDOWS_LANGUAGE English
 ensure_env MYO_WINDOWS_REGION en-US
 ensure_env MYO_WINDOWS_KEYBOARD en-US
