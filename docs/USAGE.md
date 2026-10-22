@@ -1,16 +1,24 @@
-# Usage
+# Usage — Windows VPS
 
-1. Rent a Linux x86_64 VPS that explicitly supports KVM/nested virtualization and TUN. For the default 16 GB RAM guest, aim for a physical host with 32 GB RAM or more and 8 vCPU or more.
-2. Point a public DNS name (for example `pc.example.com`) at the host's public IP. Permit inbound TCP 80 and 443 in both provider and host firewalls.
-3. Install Docker Engine and Docker Compose v2, then run from the repository root:
+## Install on the cloud host
 
-   ```bash
-   chmod +x scripts/bootstrap-windows-pc.sh
-   ./scripts/bootstrap-windows-pc.sh pc.example.com
-   ```
+Use a Linux VPS provider that explicitly supports KVM and TUN. Recommended physical host resources for the default guest: 32 GB RAM, 8 vCPU or more, and sufficient SSD. Point public DNS to its IP and allow TCP 80/443 plus UDP 443.
 
-4. Save both credential pairs printed by the script. Open the domain over HTTPS, authenticate at the gateway, then use the Windows console.
+Open an SSH session or the provider's web console for the Linux VPS. These commands execute on the cloud host, not on your local PC:
 
-The guest disk is the Docker volume `myo_windows_storage`; downloaded files live inside Windows VM storage. Routine `docker compose down` preserves volumes. Never run `docker compose down -v` unless intentionally deleting all named-volume data.
+```bash
+curl -fsSLO https://raw.githubusercontent.com/lehaitrieu151112-mayao1/M-y-o/main/install-vps.sh
+sudo bash install-vps.sh pc.example.com
+```
 
-This repository does not rent or provision the physical VPS. KVM/TUN support is required. GPU passthrough is not preconfigured, and Windows activation/licensing must be legitimate.
+Replace `pc.example.com` with the real hostname. The installer verifies the machine, installs Docker on supported Ubuntu/Debian servers if needed, downloads the project, then configures Windows 11, the persistent virtual disk, and the HTTPS gateway.
+
+## Connect
+
+After the installer finishes, save both credential pairs printed in the remote terminal. Wait for Windows first boot to finish, then open `https://pc.example.com`. Sign in to the gateway and use the real Windows desktop console.
+
+## Storage and safe operation
+
+Windows files and installed apps live on the named volume `myo_windows_storage`. No files from your local PC are shared automatically. Routine `docker compose down` preserves volumes; `docker compose down -v` is destructive and deletes the virtual disk. Keep `.env` private and never expose port 8006 directly to the public internet.
+
+Vercel/GitHub host the portal/source only. They do not supply the persistent KVM machine. GPU passthrough is not preconfigured.
