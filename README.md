@@ -1,6 +1,6 @@
 # M-Y-O Windows VPS
 
-M-Y-O is a browser-accessible Windows 11 virtual machine hosted on a cloud Linux server with KVM/QEMU. The remote desktop is the actual Windows VM, not an HTML desktop simulation. This repository provides the website portal, host installer, persistent VM disk and authenticated HTTPS gateway.
+M-Y-O is a browser-accessible Windows 11 virtual machine hosted on a cloud Linux server with KVM/QEMU. The remote desktop is the actual Windows VM, not an HTML desktop simulation. This repository provides the website portal, host installer, persistent VM disks, authenticated HTTPS gateway, and a host-side API/UI for creating and controlling multiple Windows VMs.
 
 ## Default Windows VM resources
 
@@ -33,12 +33,14 @@ Save the gateway and Windows credentials printed in the cloud server terminal. F
 - `docker compose down` retains named volumes. **Do not run `docker compose down -v`** unless you explicitly want to delete the Windows disk.
 - Console port 8006 is private to Docker. Only Caddy's HTTPS gateway is exposed.
 - Generated credentials stay in the cloud host's private `.env` file (mode 600). Never commit or share it.
-- The host installer is for a single personal Windows VM, not a multi-user hosting platform.
+- The host manager can create up to 10 additional PCs by default (configurable with `MYO_MAX_PCS`); they all run on this same host and compete for its CPU/RAM/disk. It checks reported CPU and RAM capacity before creating a VM.
+- The manager controls Docker through the host's Docker socket, which is effectively root-level access. It is reachable only through Caddy's Basic Auth gateway and a private injected token; do not publish the manager container's port or Docker socket.
+- Deleting a managed PC deletes its container, per-PC Windows disk, and generated Caddy route. This is irreversible.
 - GPU passthrough is not configured; general-purpose CPU desktop only. Windows activation/licensing remains the owner's responsibility.
 
 ## Important limits
 
-A script cannot create compute capacity from nothing. Vercel serves the web portal; it does not run this KVM Windows VM. A real cloud host with KVM must exist before a real Windows desktop can start. Cloud VM cost and Windows licence cost depend on the selected provider/licence.
+A script cannot create compute capacity from nothing. Vercel serves the web portal; it does not run KVM Windows VMs. A real cloud host with KVM must exist and the installer must run there before a real Windows desktop or VM manager can start. Cloud VM cost and Windows licence cost depend on the selected provider/licence.
 
 ## Checks
 
