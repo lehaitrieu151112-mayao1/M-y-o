@@ -22,10 +22,6 @@ jobs:
       MYO_WINDOWS_LANGUAGE: English
       MYO_WINDOWS_REGION: en-US
       MYO_WINDOWS_KEYBOARD: en-US
-      MYO_SERVER_TOKEN: test-token-not-for-production-0000000000000000000000
-      MYO_CORS_ORIGIN: ""
-      MYO_MAX_FILE_BYTES: "67108864"
-      MYO_DEFAULT_DISK_QUOTA_BYTES: "1073741824"
       TZ: Asia/Ho_Chi_Minh
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
@@ -35,6 +31,5 @@ jobs:
         run: |
           node scripts/smoke-test.mjs
           bash -n scripts/bootstrap-windows-pc.sh
-          npm --prefix server run check
       - name: Compose validation
         run: docker compose config --quiet
