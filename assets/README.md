@@ -11,3 +11,6 @@
 - `pwa.js` registers the service worker.
 
 These are plain browser scripts, deliberately avoiding a dependency/build toolchain in the starter version.
+
+- `software-apps.js` contains official Windows software links.
+- `pc-downloads.js` manages local download metadata, generated Internet Shortcuts, user-selected-file metadata imports and JSON exports.
