@@ -31,6 +31,7 @@ jobs:
         run: |
           node scripts/smoke-test.mjs
           bash -n scripts/bootstrap-windows-pc.sh
+          node --check cloud-pc/manager/manager.mjs
           bash -n install-vps.sh
       - name: Compose validation
         run: docker compose config --quiet
