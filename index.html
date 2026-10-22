@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#080d18">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/app-icon.svg" type="image/svg+xml">
 <title>M-Y-O Game Hub — PC Windows</title>
 <link rel="stylesheet" href="assets/styles.css">
 </head>
@@ -35,6 +37,6 @@
 <footer class="site-footer"><span class="brand"><span class="brand-mark small-mark">MYO</span><span>M-Y-O <small>GAME HUB</small></span></span><span>Prototype PC Windows · Chưa phải VPS/cloud gaming thật.</span><a href="pc.html">Tạo PC</a></footer>
 </div>
 <div class="modal-backdrop" id="gameModal" hidden><section class="game-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" id="modalClose" aria-label="Đóng">×</button><div class="modal-icon" id="modalIcon">🎮</div><div class="eyebrow">GIỚI THIỆU GAME PC</div><h2 id="modalTitle">Game</h2><p id="modalDescription"></p><dl class="modal-details"><div><dt>Thể loại</dt><dd id="modalGenre"></dd></div><div><dt>Nhà phát hành</dt><dd id="modalPublisher"></dd></div><div><dt>Hỗ trợ / cấu hình</dt><dd id="modalRequirements"></dd></div></dl><a class="button button-primary" href="pc.html">Tạo PC để mở nguồn chính thức →</a><p class="modal-note">Game yêu cầu tài khoản/launcher hoặc mua bản quyền nếu nhà phát hành quy định.</p></section></div>
-<script src="assets/games.js"></script><script src="assets/app.js"></script>
+<script src="assets/games.js"></script><script src="assets/app.js"></script><script src="assets/pwa.js" defer></script>
 </body>
 </html>
