@@ -9,6 +9,7 @@ const SOCKET = '/var/run/docker.sock';
 const SITES = '/sites';
 const NETWORK = 'myo_internal';
 const MAX_PCS = Math.max(1, Math.min(20, Number(process.env.MYO_MAX_PCS || 10)));
+const MANAGER_TOKEN = String(process.env.MYO_MANAGER_TOKEN || '');
 const GB = 1024 ** 3;
 
 if (!/^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/.test(DOMAIN)) {
@@ -143,6 +144,7 @@ function errorStatus(err) {
 
 const app = http.createServer(async (req, res) => {
   const pathname = new URL(req.url || '/', 'http://localhost').pathname;
+  if (!MANAGER_TOKEN || req.headers['x-myo-manager-token'] !== MANAGER_TOKEN) return send(res, 403, { error: 'Manager request was not authorized by the gateway.' });
   try {
     if (req.method === 'GET' && pathname === '/') {
       const html = fs.readFileSync(path.join(path.dirname(new URL(import.meta.url).pathname), 'index.html'));
