@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b1020"><title>M-Y-O · Quản lý PC Windows thật</title>
+<style>
+:root{color-scheme:dark;--bg:#080d19;--line:#293851;--text:#edf4ff;--muted:#a7b6ce}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 12% 0,#19375f 0,transparent 40%),var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}.shell{width:min(1100px,calc(100% - 32px));margin:auto}.top{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line)}.brand{font-weight:850;letter-spacing:.06em}.small,.sub{color:var(--muted)}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.1;letter-spacing:-.04em;margin:28px 0 8px}.sub{margin:0 0 20px}.layout{display:grid;grid-template-columns:330px 1fr;gap:18px;align-items:start}.panel,.pc{border:1px solid var(--line);border-radius:17px;padding:20px;background:linear-gradient(145deg,#15233a,#0d1727);min-width:0}.panel h2{margin:0 0 5px;font-size:1.16rem}.field{margin:13px 0}.field label{display:block;font-size:.88rem;font-weight:750;margin-bottom:6px}.field input,.field select{width:100%;background:#080f1e;color:var(--text);border:1px solid #425673;border-radius:9px;padding:11px;font:inherit}.btn{border:1px solid #38506f;border-radius:10px;background:#182740;color:var(--text);font:inherit;font-weight:750;padding:10px 13px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px}.primary{background:linear-gradient(120deg,#75b7ff,#8995ff);color:#071020;border:0}.danger{border-color:#743d4a;background:#321d28;color:#ffc4c4}.wide{width:100%}.btn:disabled{opacity:.5;cursor:wait}.status{border:1px solid #374b66;background:#0a1423;border-radius:11px;padding:11px 13px;color:var(--muted);margin:14px 0;font-size:.9rem;overflow-wrap:anywhere}.status.ok{border-color:#285c50;color:#9ce7c9}.status.err{border-color:#734450;color:#ffc1c1}.empty{border:1px dashed #405675;border-radius:14px;padding:22px;text-align:center;color:var(--muted)}.list{display:grid;gap:12px}.pc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.pc h3{margin:0;font-size:1.05rem;overflow-wrap:anywhere}.pill{display:inline-block;padding:3px 8px;border:1px solid #3d5a79;border-radius:999px;font-size:.77rem;color:#c8dcf8;white-space:nowrap}.specs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.spec{background:#091322;border:1px solid #293a54;padding:9px;border-radius:9px}.spec b{display:block}.spec span{font-size:.76rem;color:var(--muted)}.actions{display:flex;gap:8px;flex-wrap:wrap}.actions .btn{font-size:.86rem}.url{display:block;overflow-wrap:anywhere;margin:8px 0 14px}.foot{padding:22px 0 35px;color:var(--muted);font-size:.85rem}.creds{border:1px solid #866d37;background:#2b2415;border-radius:10px;padding:12px;margin-top:14px;overflow-wrap:anywhere}.creds code{user-select:all;color:#fff}.small{font-size:.81rem}@media(max-width:850px){.layout{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}}@media(max-width:430px){.specs{grid-template-columns:1fr 1fr}.actions .btn{flex:1}}
+</style></head><body><div class="shell">
+<header class="top"><div class="brand">🖥️ M-Y-O · WINDOWS VPS<div class="small">Quản lý máy ảo trên host KVM hiện tại</div></div><a class="btn" href="/">← PC mặc định</a></header>
+<main><h1>Máy tính Windows của tôi</h1><p class="sub">Danh sách được đọc từ Docker trên máy chủ. Mỗi lần nhấn tạo sẽ yêu cầu một Windows VM mới, đĩa riêng và địa chỉ desktop HTTPS riêng.</p>
+<div id="hostStatus" class="status" role="status" aria-live="polite">Đang kiểm tra tài nguyên máy chủ…</div>
+<div class="layout"><section class="panel"><h2>＋ Tạo một PC thật</h2><p class="small">Mỗi lần gửi form chỉ tạo một máy ảo mới trên cùng host KVM.</p>
+<form id="createForm"><div class="field"><label for="name">Tên PC</label><input id="name" maxlength="48" placeholder="PC của tôi" required value="PC của tôi"></div>
+<div class="field"><label for="os">Windows</label><select id="os"><option>Windows 11</option><option>Windows Server 2022</option></select></div>
+<div class="field"><label for="cpu">CPU ảo</label><select id="cpu"><option value="2">2 vCPU</option><option value="4" selected>4 vCPU</option><option value="6">6 vCPU</option><option value="8">8 vCPU</option></select></div>
+<div class="field"><label for="ram">RAM</label><select id="ram"><option value="4">4 GB</option><option value="8" selected>8 GB</option><option value="16">16 GB</option><option value="32">32 GB</option></select></div>
+<div class="field"><label for="disk">Ổ đĩa SSD</label><select id="disk"><option value="64">64 GB</option><option value="128">128 GB</option><option value="256" selected>256 GB</option><option value="512">512 GB</option></select></div>
+<button id="createBtn" class="btn primary wide" type="submit">Tạo PC thật →</button></form>
+<p class="small">PC nằm ở vị trí địa lý của host này. Vùng khác cần host khác.</p><div id="newCredentials" hidden></div></section>
+<section><div class="pc" style="margin-bottom:12px"><h2 style="margin:0 0 6px">PC do máy chủ quản lý</h2><p class="small" style="margin:0">Không lấy danh sách PC từ localStorage.</p></div><div id="pcList" class="list"><div class="empty">Đang tải danh sách PC từ API…</div></div></section></div></main>
+<footer class="foot">Windows thật cần host KVM/TUN và đủ tài nguyên. Xóa PC sẽ xóa vĩnh viễn ổ đĩa Windows và tệp của PC đó. Giữ thông tin đăng nhập riêng tư.</footer></div>
+<script>
+(function(){
+'use strict';
+function $(id){return document.getElementById(id);}
+var form=$('createForm'),list=$('pcList'),status=$('hostStatus'),createBtn=$('createBtn'),credentials=$('newCredentials');
+async function api(p,o){o=o||{};var r=await fetch('/api'+p,Object.assign({},o,{headers:Object.assign({'content-type':'application/json'},o.headers||{}),cache:'no-store'}));var d={};try{d=await r.json();}catch(e){}if(!r.ok)throw new Error(d.error||('API '+r.status));return d;}
+function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function showError(m){status.className='status err';status.textContent=m;}
+async function refresh(){
+ try{
+  var pair=await Promise.all([api('/status'),api('/pcs')]),h=pair[0],d=pair[1];
+  status.className='status ok';
+  status.textContent='Backend hoạt động · '+h.totalCpu+' vCPU · '+h.totalRamGb+' GB RAM · VM đang dùng '+h.usedCpu+' vCPU / '+h.usedRamGb+' GB · '+h.totalPcs+'/'+h.maxPcs+' PC đã tạo trên host '+h.host+'.';
+  createBtn.disabled=!h.canCreate;createBtn.textContent=h.canCreate?'Tạo PC thật →':'Đạt giới hạn PC';
+  if(!d.pcs.length){list.innerHTML='<div class="empty">Chưa có PC nào do trình quản lý này tạo.</div>';return;}
+  list.innerHTML=d.pcs.map(function(p){
+   var run=p.state==='running';
+   return '<article class="pc"><div class="pc-top"><div><h3>🖥️ '+esc(p.name)+'</h3><div class="small">'+esc(p.os)+' · ID '+esc(p.id)+'</div></div><span class="pill">'+(run?'Đang chạy':esc(p.state))+'</span></div>'+
+   '<div class="specs"><div class="spec"><b>'+p.cpu+' vCPU</b><span>CPU</span></div><div class="spec"><b>'+p.ram+' GB</b><span>RAM</span></div><div class="spec"><b>'+p.disk+' GB</b><span>SSD</span></div></div>'+
+   '<span class="small">Docker: '+esc(p.status||p.state)+'</span><a class="url" href="'+esc(p.url)+'" target="_blank" rel="noopener noreferrer">'+esc(p.url)+'</a><div class="actions">'+
+   '<a class="btn primary" href="'+esc(p.url)+'" target="_blank" rel="noopener noreferrer">Mở desktop ↗</a><button class="btn" data-action="'+(run?'stop':'start')+'" data-id="'+esc(p.id)+'">'+(run?'Tắt PC':'Bật PC')+'</button>'+
+   '<button class="btn" data-action="restart" data-id="'+esc(p.id)+'">Khởi động lại</button><button class="btn danger" data-action="delete" data-id="'+esc(p.id)+'">Xóa PC + ổ</button></div></article>';
+  }).join('');
+ }catch(e){showError('Không kết nối được backend VM thật: '+e.message+' Kiểm tra Docker/KVM trên VPS và đăng nhập cổng bảo vệ.');}
+}
+form.addEventListener('submit',async function(e){
+ e.preventDefault();createBtn.disabled=true;createBtn.textContent='Đang tạo VM trên host…';credentials.hidden=true;credentials.replaceChildren();
+ var b={name:$('name').value.trim(),os:$('os').value,cpu:Number($('cpu').value),ram:Number($('ram').value),disk:Number($('disk').value)};
+ try{
+  var r=await api('/pcs',{method:'POST',body:JSON.stringify(b)});
+  credentials.hidden=false;credentials.className='creds';
+  credentials.innerHTML='<b>Máy chủ đã chấp nhận yêu cầu tạo VM.</b><p class="small">Lưu mật khẩu này ngay; trình quản lý không thể hiển thị lại.</p><p>Người dùng: <code>'+esc(r.guestUsername)+'</code></p><p>Mật khẩu: <code>'+esc(r.guestPassword)+'</code></p><button id="copyCredentials" type="button" class="btn">Sao chép thông tin</button><p class="small">'+esc(r.message)+'</p>';
+  $('copyCredentials').addEventListener('click',async function(){try{await navigator.clipboard.writeText('Username: '+r.guestUsername+'\nPassword: '+r.guestPassword);$('copyCredentials').textContent='Đã sao chép';}catch(e){$('copyCredentials').textContent='Chọn và sao chép thủ công';}});
+  form.reset();$('name').value='PC mới';await refresh();
+ }catch(e){showError('Không tạo được PC: '+e.message);}
+ finally{createBtn.disabled=false;if(createBtn.textContent==='Đang tạo VM trên host…')createBtn.textContent='Tạo PC thật →';}
+});
+list.addEventListener('click',async function(e){
+ var b=e.target.closest('button[data-action]');if(!b)return;var id=b.dataset.id,a=b.dataset.action;
+ if(a==='delete'&&!confirm('XÓA VĨNH VIỄN PC cùng toàn bộ ổ Windows và tệp? Không thể hoàn tác.'))return;
+ b.disabled=true;
+ try{if(a==='delete')await api('/pcs/'+id,{method:'DELETE'});else await api('/pcs/'+id+'/'+a,{method:'POST',body:'{}'});await refresh();}
+ catch(e){showError('Thao tác thất bại: '+e.message);}finally{b.disabled=false;}
+});
+refresh();
+})();
+</script></body></html>
