@@ -10,6 +10,9 @@
 *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 12% 0,#19375f 0,transparent 40%),radial-gradient(ellipse at 100% 25%,#25205a 0,transparent 35%),var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
 a{color:#a9cdff}button,input{font:inherit}.shell{width:min(1120px,calc(100% - 32px));margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px 0;border-bottom:1px solid #293851}.brand{display:flex;align-items:center;gap:12px;color:var(--text);text-decoration:none;font-weight:850;letter-spacing:.06em}.logo{width:46px;height:46px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(140deg,#82c0ff,#6979ff);color:#081020;box-shadow:0 8px 28px #527cff40}.brand small{display:block;color:var(--muted);font-size:.7rem;letter-spacing:.18em}.nav{display:flex;gap:10px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;border-radius:11px;border:1px solid #38506f;text-decoration:none;font-weight:750;cursor:pointer;background:#182740;color:var(--text)}.primary{background:linear-gradient(120deg,#75b7ff,#8995ff);color:#071020;border:0}.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:28px;align-items:center;padding:58px 0 34px}.eyebrow{font-size:.78rem;font-weight:850;letter-spacing:.18em;color:var(--green)}h1{font-size:clamp(2.5rem,6vw,4.7rem);line-height:1.04;letter-spacing:-.05em;margin:13px 0 18px}.lead{color:var(--muted);font-size:1.08rem;max-width:700px}.accent{color:#92bfff}.panel{border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,#15233a,#0d1727);padding:23px;box-shadow:0 22px 60px #0003}.panel h2{margin:0 0 6px;font-size:1.25rem}.sub{color:var(--muted);margin:0 0 17px;font-size:.94rem}.label{display:block;font-weight:750;font-size:.9rem;margin:12px 0 8px}input{width:100%;min-width:0;background:#080f1e;border:1px solid #425673;color:var(--text);border-radius:10px;padding:13px 14px;outline:none}input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #67a2ff22}.form-row{display:flex;gap:9px}.form-row input{flex:1}.status{margin-top:13px;padding:12px;border:1px solid #3b4c65;background:#0a1423;border-radius:11px;color:var(--muted);font-size:.9rem}.specs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.spec{border:1px solid #2c3d57;border-radius:12px;padding:13px;background:#0b1423}.spec strong{display:block;font-size:1.05rem}.spec span{display:block;color:var(--muted);font-size:.78rem;margin-top:3px}.section{padding:20px 0 32px}.section h2{font-size:1.55rem;margin:0 0 13px}.requirements{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.req{border:1px solid var(--line);border-radius:15px;padding:18px;background:#111b2dcc}.req .ico{font-size:1.5rem}.req h3{margin:8px 0 4px;font-size:1rem}.req p{margin:0;color:var(--muted);font-size:.9rem}.code{display:block;overflow:auto;margin:12px 0;padding:13px 14px;background:#060b13;border:1px solid #24334a;border-radius:10px;color:#d7e8ff;font:.88rem/1.7 ui-monospace,SFMono-Regular,Consolas,monospace}.notice{border-left:3px solid var(--amber);padding:12px 15px;background:#f5c9790b;color:var(--muted);font-size:.9rem;margin-top:15px}.notice b{color:var(--text)}footer{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:16px;padding:22px 0 34px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
 @media(max-width:800px){.hero{grid-template-columns:1fr;padding-top:38px}.requirements{grid-template-columns:1fr}.specs{grid-template-columns:1fr 1fr 1fr}.form-row{flex-direction:column}.top{align-items:flex-start;flex-direction:column}}@media(max-width:420px){.specs{grid-template-columns:1fr}.nav{width:100%}.nav .btn{flex:1}}
+
+.pc-manager{padding:20px 0 32px}.pc-manager-head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:14px}.pc-manager-head h2{margin:0;font-size:1.55rem}.pc-manager-head p{margin:4px 0 0;color:var(--muted);font-size:.92rem}.pc-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:14px}.pc-empty{border:1px dashed #405675;border-radius:15px;padding:22px;color:var(--muted);text-align:center}.pc-card{border:1px solid var(--line);border-radius:15px;padding:17px;background:linear-gradient(145deg,#121f34,#0b1423);min-width:0}.pc-card-top{display:flex;gap:12px;align-items:center}.pc-card-icon{width:44px;height:44px;flex:none;display:grid;place-items:center;border-radius:12px;background:#243959;font-size:22px}.pc-card h3{font-size:1rem;margin:0}.pc-card small{color:var(--muted)}.pc-specs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:15px 0}.pc-spec{background:#080f1d;border:1px solid #283954;border-radius:9px;padding:8px}.pc-spec b{display:block;font-size:.92rem}.pc-spec span{font-size:.72rem;color:var(--muted)}.pc-state{font-size:.82rem;border:1px solid #655638;background:#292112;border-radius:8px;color:#f4d397;padding:9px;margin:12px 0}.pc-card-actions{display:flex;gap:8px;flex-wrap:wrap}.pc-card-actions button{font-size:.84rem;padding:8px 10px}.pc-editor{margin:0 0 16px;border:1px solid #47638a;border-radius:17px;padding:20px;background:linear-gradient(145deg,#172944,#0d182a);box-shadow:0 16px 40px #0002}.pc-editor[hidden]{display:none}.pc-editor h3{margin:0 0 6px}.pc-editor-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.pc-field label{display:block;color:#dce8fa;font-size:.87rem;font-weight:700;margin:0 0 6px}.pc-field input,.pc-field select{width:100%;padding:11px 12px;border:1px solid #405675;border-radius:9px;background:#081120;color:var(--text);font:inherit}.pc-field select{cursor:pointer}.pc-editor-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.pc-editor-note{font-size:.83rem;color:var(--muted);margin:12px 0 0}.pc-manager-banner{margin-top:13px;border-left:3px solid var(--amber);background:#f5c9790b;padding:12px 14px;color:var(--muted);font-size:.88rem}.pc-manager-banner b{color:var(--text)}@media(max-width:520px){.pc-editor-grid{grid-template-columns:1fr}.pc-manager-head .btn{width:100%}}
+
 </style>
 </head>
 <body>
@@ -36,6 +39,28 @@ a{color:#a9cdff}button,input{font:inherit}.shell{width:min(1120px,calc(100% - 32
     <div id="connectStatus" class="status" role="status" aria-live="polite">Chưa có máy chủ được kết nối. Cần triển khai Windows VM trên host có KVM trước.</div>
     <p class="sub" style="margin:14px 0 0">Địa chỉ được lưu trong trình duyệt hiện tại; không nhập mật khẩu vào ô này.</p>
   </section>
+</section>
+<section class="pc-manager" id="pcManager" aria-labelledby="pcManagerTitle">
+  <div class="pc-manager-head">
+    <div><h2 id="pcManagerTitle">Máy tính của tôi</h2><p>Cấu hình mỗi máy riêng; bấm “Thêm PC” để mở form cho đúng một máy mới.</p></div>
+    <button class="btn primary" id="addPcBtn" type="button">＋ Thêm PC</button>
+  </div>
+  <form class="pc-editor" id="pcEditor" hidden>
+    <h3 id="pcEditorTitle">Cấu hình PC mới</h3>
+    <p class="sub">Chọn cấu hình mong muốn rồi lưu lại.</p>
+    <div class="pc-editor-grid">
+      <div class="pc-field"><label for="pcName">Tên PC</label><input id="pcName" maxlength="48" required placeholder="PC của tôi"></div>
+      <div class="pc-field"><label for="pcOs">Hệ điều hành</label><select id="pcOs"><option value="Windows 11">Windows 11</option><option value="Windows 11 Pro">Windows 11 Pro</option><option value="Windows Server 2022">Windows Server 2022</option></select></div>
+      <div class="pc-field"><label for="pcCpu">CPU ảo</label><select id="pcCpu"><option value="2">2 vCPU</option><option value="4">4 vCPU</option><option value="6" selected>6 vCPU</option><option value="8">8 vCPU</option><option value="12">12 vCPU</option><option value="16">16 vCPU</option></select></div>
+      <div class="pc-field"><label for="pcRam">RAM</label><select id="pcRam"><option value="4">4 GB</option><option value="8">8 GB</option><option value="16" selected>16 GB</option><option value="24">24 GB</option><option value="32">32 GB</option><option value="64">64 GB</option></select></div>
+      <div class="pc-field"><label for="pcDisk">Ổ đĩa</label><select id="pcDisk"><option value="64">64 GB SSD</option><option value="128">128 GB SSD</option><option value="256" selected>256 GB SSD</option><option value="512">512 GB SSD</option><option value="1024">1 TB SSD</option></select></div>
+      <div class="pc-field"><label for="pcRegion">Vùng máy chủ</label><select id="pcRegion"><option value="Singapore">Singapore</option><option value="Japan">Nhật Bản</option><option value="US">Hoa Kỳ</option><option value="Europe">Châu Âu</option></select></div>
+    </div>
+    <div class="pc-editor-actions"><button class="btn primary" id="savePcBtn" type="submit">Lưu cấu hình PC</button><button class="btn secondary" id="cancelPcBtn" type="button">Hủy</button></div>
+    <p class="pc-editor-note">Thông số này được lưu thành bản cấu hình trên trình duyệt. Máy ảo Windows thật chỉ được tạo khi có API cấp phát kết nối với máy chủ cloud KVM.</p>
+  </form>
+  <div class="pc-list" id="pcList"><div class="pc-empty">Chưa có cấu hình PC. Bấm “Thêm PC” để cấu hình máy đầu tiên.</div></div>
+  <div class="pc-manager-banner"><b>Trạng thái thật:</b> trang web không tự giả lập hệ điều hành. Các bản cấu hình chưa tiêu thụ tài nguyên máy chủ và không được tính là máy ảo đang chạy; cần backend quản lý VM trên host cloud để cấp phát Windows thật.</div>
 </section>
 <section class="section">
   <h2>Chuẩn bị máy chủ thật</h2>
@@ -74,5 +99,74 @@ form.addEventListener('submit',event=>{
 });
 })();
 </script>
+
+<script>
+(()=> {
+  'use strict';
+  const STORE_KEY='myo_pc_configurations_v1';
+  const $=id=>document.getElementById(id);
+  const editor=$('pcEditor'), list=$('pcList'), add=$('addPcBtn'), form=$('pcEditor');
+  let editingId=null;
+  let pcs=[];
+  try {
+    const data=JSON.parse(localStorage.getItem(STORE_KEY)||'[]');
+    if(Array.isArray(data)) pcs=data.filter(p=>p&&typeof p.id==='string'&&typeof p.name==='string').slice(0,100);
+  } catch { pcs=[]; }
+  function escapeHtml(value){
+    return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  function persist(){localStorage.setItem(STORE_KEY,JSON.stringify(pcs));}
+  function openEditor(pc=null){
+    editingId=pc?.id||null;
+    form.reset();
+    $('pcEditorTitle').textContent=pc?'Chỉnh sửa cấu hình PC':'Cấu hình PC mới';
+    $('pcName').value=pc?.name||'PC '+(pcs.length+1);
+    $('pcOs').value=pc?.os||'Windows 11';
+    $('pcCpu').value=String(pc?.cpu||6);
+    $('pcRam').value=String(pc?.ram||16);
+    $('pcDisk').value=String(pc?.disk||256);
+    $('pcRegion').value=pc?.region||'Singapore';
+    editor.hidden=false;
+    editor.scrollIntoView({behavior:'smooth',block:'center'});
+    $('pcName').focus();
+  }
+  function render(){
+    if(!pcs.length){
+      list.innerHTML='<div class="pc-empty">Chưa có cấu hình PC. Bấm “Thêm PC” để cấu hình máy đầu tiên.</div>';
+      return;
+    }
+    list.innerHTML=pcs.map((p,i)=>'<article class="pc-card" data-pc-id="'+escapeHtml(p.id)+'"><div class="pc-card-top"><div class="pc-card-icon">🖥️</div><div><h3>'+escapeHtml(p.name)+'</h3><small>Cấu hình #'+(i+1)+' · '+escapeHtml(p.os)+'</small></div></div><div class="pc-specs"><div class="pc-spec"><b>'+Number(p.cpu)+' vCPU</b><span>CPU</span></div><div class="pc-spec"><b>'+Number(p.ram)+' GB</b><span>RAM</span></div><div class="pc-spec"><b>'+escapeHtml(Number(p.disk)>=1024?(Number(p.disk)/1024)+' TB':p.disk+' GB')+'</b><span>SSD</span></div></div><div class="pc-state">Chưa cấp phát — chỉ là cấu hình lưu cục bộ</div><div class="pc-card-actions"><button class="btn secondary" type="button" data-action="edit">Sửa cấu hình</button><button class="btn secondary" type="button" data-action="delete">Xóa cấu hình</button></div></article>').join('');
+  }
+  add.addEventListener('click',()=>openEditor());
+  $('cancelPcBtn').addEventListener('click',()=>{editor.hidden=true;editingId=null;});
+  form.addEventListener('submit',event=>{
+    event.preventDefault();
+    const name=$('pcName').value.trim();
+    if(!name){$('pcName').focus();return;}
+    const config={
+      id:editingId||((typeof crypto!=='undefined'&&crypto.randomUUID)?crypto.randomUUID():'pc-'+Date.now()+'-'+Math.random().toString(16).slice(2)),
+      name:name.slice(0,48),os:$('pcOs').value,cpu:Number($('pcCpu').value),
+      ram:Number($('pcRam').value),disk:Number($('pcDisk').value),region:$('pcRegion').value,
+      status:'configuration-only',createdAt:editingId?(pcs.find(p=>p.id===editingId)?.createdAt||new Date().toISOString()):new Date().toISOString()
+    };
+    if(editingId){pcs=pcs.map(p=>p.id===editingId?config:p);}
+    else {pcs.push(config);}
+    try{persist();}catch{alert('Không thể lưu cấu hình. Bộ nhớ trình duyệt có thể đã đầy.');return;}
+    editor.hidden=true;editingId=null;render();
+  });
+  list.addEventListener('click',event=>{
+    const button=event.target.closest('button[data-action]');
+    if(!button)return;
+    const card=button.closest('[data-pc-id]');if(!card)return;
+    const pc=pcs.find(item=>item.id===card.dataset.pcId);if(!pc)return;
+    if(button.dataset.action==='edit')openEditor(pc);
+    if(button.dataset.action==='delete'&&confirm('Xóa cấu hình "'+pc.name+'"?')){
+      pcs=pcs.filter(item=>item.id!==pc.id);persist();render();
+    }
+  });
+  render();
+})();
+</script>
+
 <script src="assets/pwa.js" defer></script>
 </body></html>
