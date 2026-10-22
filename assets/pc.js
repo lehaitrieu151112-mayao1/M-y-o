@@ -34,9 +34,31 @@ function bindNotepad(e){const ta=e.querySelector('#notepadBody');if(ta){ta.addEv
 function bindGamesFilter(e){const input=e.querySelector('#pcGameFilter');if(input)input.addEventListener('input',()=>window.MYOPCApps.filterGames(e))}
 function openBrowserFullscreen(k){const el=windows[k]?.el;if(!el)return;if(document.fullscreenElement){document.exitFullscreen?.();return}if(el.requestFullscreen)el.requestFullscreen().then(()=>notify('Cửa sổ chuyển toàn màn hình. Nhấn Esc để thoát.')).catch(()=>notify('Trình duyệt không cho phép toàn màn hình. Thử bấm lại nút ⛶.'));else notify('Trình duyệt không hỗ trợ API toàn màn hình.')}
 function fullscreenDesktop(){const el=$('desktopShell');if(document.fullscreenElement){document.exitFullscreen?.();return}if(el.requestFullscreen)el.requestFullscreen().then(()=>notify('Desktop ở chế độ toàn màn hình. Nhấn Esc để thoát.')).catch(()=>notify('Không bật được toàn màn hình. Hãy bấm trực tiếp nút ⛶ lần nữa.'))}
-function saveNotes(){const e=windows.notepad?.el;if(!e)return false;const name=(e.querySelector('#notepadName')?.value||'Ghi chú.txt').trim()||'Ghi chú.txt';const text=e.querySelector('#notepadBody')?.value||'';const ok=STORE.setNotes({name,text,updatedAt:new Date().toISOString()});const stat=e.querySelector('#notepadStatus');if(stat)stat.textContent=ok?'Đã lưu trong trình duyệt':'Không lưu được';if(ok)notify('Đã lưu ghi chú cục bộ.');return ok}
-async function saveNotesReal(){const e=windows.notepad?.el;if(!e)return;const name=(e.querySelector('#notepadName')?.value||'Ghi chú.txt').trim()||'Ghi chú.txt',text=e.querySelector('#notepadBody')?.value||'';try{if(openedFile?.handle?.createWritable){const w=await openedFile.handle.createWritable();await w.write(text);await w.close();notify('Đã ghi nội dung vào tệp thật '+openedFile.name);return}if(window.showSaveFilePicker){const h=await window.showSaveFilePicker({suggestedName:name,types:[{description:'Tệp văn bản',accept:{'text/plain':['.txt','.md','.log']}}]});const w=await h.createWritable();await w.write(text);await w.close();notify('Đã lưu tệp thật '+h.name);return}const blob=new Blob([text],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);notify('Đã tải tệp văn bản xuống Downloads.')}catch(err){if(err.name!=='AbortError')notify('Không lưu được tệp: '+err.message)}}
-function downloadNotes(){const e=windows.notepad?.el;if(!e)return;const name=(e.querySelector('#notepadName')?.value||'Ghi chú.txt').trim()||'Ghi chú.txt',text=e.querySelector('#notepadBody')?.value||'',url=URL.createObjectURL(new Blob([text],{type:'text/plain;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1500)}
+async function saveNotes(){
+ const e=windows.notepad?.el;if(!e)return false;
+ const name=(e.querySelector('#notepadName')?.value||'Ghi chú.txt').trim()||'Ghi chú.txt';
+ const text=e.querySelector('#notepadBody')?.value||'';
+ try{
+  const disk=window.MYOVirtualDisk;
+  const target=openedFile?.virtualPath||disk.join('C:/Documents',name);
+  await disk.ensureDir(disk.parent(target)||'C:');
+  await disk.saveText(target,text,{mime:'text/plain;charset=utf-8',recordType:'notepad-text'});
+  STORE.setNotes({name,text,virtualPath:target,updatedAt:new Date().toISOString()});
+  openedFile={...(openedFile||{}),name,text,virtualPath:target};
+  const stat=e.querySelector('#notepadStatus');if(stat)stat.textContent='Đã lưu trong C: ảo';
+  notify('Đã lưu '+name+' vào '+target+' trong PC ảo.');
+  window.MYOPC?.refresh('explorer');window.MYOPC?.refresh('drive');window.MYOPC?.refresh('downloads');
+  return true;
+ }catch(err){notify('Không lưu được vào ổ C: ảo: '+err.message);return false}
+}
+async function saveNotesReal(){return saveNotes()}
+async function downloadNotes(){
+ const e=windows.notepad?.el;if(!e)return;
+ const name=(e.querySelector('#notepadName')?.value||'Ghi chú.txt').trim()||'Ghi chú.txt';
+ const text=e.querySelector('#notepadBody')?.value||'';
+ try{const d=window.MYOVirtualDisk,target=d.join('C:/Downloads',name);await d.saveText(target,text,{mime:'text/plain;charset=utf-8',recordType:'notepad-copy'});notify('Đã tạo bản sao bên trong '+target+' của PC ảo. Không tải ra PC thật.');window.MYOPC?.refresh('explorer');window.MYOPC?.refresh('drive');window.MYOPC?.refresh('downloads')}
+ catch(err){notify('Không tạo được bản sao trong C: ảo: '+err.message)}
+}
 function bindSetup(){ $('launchPcBtn').addEventListener('click',createAndLaunch);$('resetSetupBtn').addEventListener('click',()=>{fillSetup(defaults);$('setupFeedback').textContent='Đã khôi phục cấu hình mặc định. Nhấn Tạo PC để mở desktop.'});$('savedInstances').addEventListener('click',e=>{const o=e.target.closest('[data-profile-open]'),d=e.target.closest('[data-profile-delete]');if(o)openSaved(o.dataset.profileOpen);if(d){const p=profiles.find(x=>String(x.id)===d.dataset.profileDelete);if(p&&confirm('Xóa hồ sơ '+p.name+'?')){profiles=profiles.filter(x=>x!==p);if(currentProfile===p)currentProfile=null;STORE.setProfiles(profiles);renderProfiles()}}})}
 function bindNotepadAction(action,e){if(action==='save-notes')saveNotes();else if(action==='download-notes')downloadNotes();else if(action==='save-notes-real')saveNotesReal()}
 function openGameInfo(id){const g=(window.MYO_GAMES||[]).find(x=>x.id===id);if(!g)return;notify(g.name+' · '+g.genre+' · '+g.publisher+'. Nguồn tải nằm ở nút bên cạnh.')}
@@ -74,7 +96,7 @@ $('startSearch').addEventListener('input',()=>{const q=$('startSearch').value.to
 document.addEventListener('keydown',e=>{if(e.key==='Escape')$('startMenu').hidden=true});
 }
 function searchApps(raw){const q=String(raw||'').trim().toLowerCase();if(!q){openApp('chrome');return}const match=Object.entries(apps).find(([k,v])=>(k+' '+v.title).toLowerCase().includes(q));if(match)openApp(match[0]);else{openApp('chrome');setTimeout(()=>{const w=windows.chrome?.el;if(w){const input=w.querySelector('#browserAddress');if(input){input.value=raw;input.focus()}}},60)}$('startMenu').hidden=true}
-function setOpenFile(file){openedFile=file;if(windows.notepad){closeApp('notepad')}openApp('notepad');const e=windows.notepad?.el;if(e){e.querySelector('#notepadName').value=file.name||'Ghi chú.txt';e.querySelector('#notepadBody').value=file.text||'';e.querySelector('#notepadStatus').textContent=file.handle?'Đã mở tệp thật':'Tệp trong workspace'}} 
+function setOpenFile(file){openedFile=file;if(windows.notepad){closeApp('notepad')}openApp('notepad');const e=windows.notepad?.el;if(e){e.querySelector('#notepadName').value=file.name||'Ghi chú.txt';e.querySelector('#notepadBody').value=file.text||'';e.querySelector('#notepadStatus').textContent=file.virtualPath?'Đã mở từ '+file.virtualPath:'Tệp trong workspace'}} 
 function clock(){const d=new Date(),t=d.toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'}),date=d.toLocaleDateString('vi-VN',{day:'2-digit',month:'2-digit'});$('taskbarClock').innerHTML=esc(t)+'<br>'+esc(date);$('desktopClockTop').textContent=d.toLocaleString('vi-VN',{dateStyle:'medium',timeStyle:'short'})}
 document.addEventListener('fullscreenchange',()=>{const b=$('taskbarFullscreen');if(b)b.textContent=document.fullscreenElement?'⤢':'⛶'});
 bindSetup();bindDesktopEvents();fillSetup(cfg);renderProfiles();clock();setInterval(clock,30000);
