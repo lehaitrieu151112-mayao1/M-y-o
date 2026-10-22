@@ -103,7 +103,7 @@ async function hostUsage() {
       const inspected = (await docker('GET', '/containers/' + row.Id + '/json')).data;
       const labels = inspected.Config && inspected.Config.Labels || {};
       const env = inspected.Config && inspected.Config.Env || [];
-      usedRam += Number(labels['myo.ram_gb'] || toGb(envValue(env, 'RAM_SIZE')));
+      usedRam += Number(labels['myo.ram_gb'] || toGb(envValue(env, 'RAM_SIZE'))) + 1;
       usedCpu += Number(labels['myo.cpu'] || envValue(env, 'CPU_CORES'));
     } catch {}
   }
@@ -176,7 +176,7 @@ const app = http.createServer(async (req, res) => {
       const usage = await hostUsage();
       if (!usage.totalCpu || !usage.totalRamGb) return send(res, 503, { error: 'Docker did not report host capacity.' });
       if (usage.usedCpu + cpu > usage.totalCpu) return send(res, 409, { error: 'Not enough CPU. Windows VMs currently use ' + usage.usedCpu + '/' + usage.totalCpu + ' vCPU.' });
-      if (usage.usedRamGb + ram > usage.totalRamGb - 3) return send(res, 409, { error: 'Not enough RAM. ' + usage.usedRamGb + ' GB of ' + usage.totalRamGb + ' GB is in use; 3 GB is reserved for the host.' });
+      if (usage.usedRamGb + ram + 1 > usage.totalRamGb - 3) return send(res, 409, { error: 'Not enough RAM. ' + usage.usedRamGb + ' GB of ' + usage.totalRamGb + ' GB is in use; 3 GB is reserved for the host.' });
 
       const id = crypto.randomBytes(6).toString('hex');
       const volume = 'myo_windows_' + id;
@@ -205,7 +205,7 @@ const app = http.createServer(async (req, res) => {
               { PathOnHost: '/dev/kvm', PathInContainer: '/dev/kvm', CgroupPermissions: 'rwm' },
               { PathOnHost: '/dev/net/tun', PathInContainer: '/dev/net/tun', CgroupPermissions: 'rwm' }
             ],
-            CapAdd: ['NET_ADMIN'], ShmSize: 1073741824, Memory: ram * GB, NanoCpus: cpu * 1000000000,
+            CapAdd: ['NET_ADMIN'], ShmSize: 1073741824, Memory: (ram + 1) * GB, NanoCpus: cpu * 1000000000,
             RestartPolicy: { Name: 'unless-stopped' }, NetworkMode: NETWORK
           },
           NetworkingConfig: { EndpointsConfig: { [NETWORK]: { Aliases: ['myo-windows-' + id] } } }
