@@ -14,7 +14,7 @@ for(const v of ['desktopShell','windowLayer','cfgGpu','MYOVirtualDisk','MYOPCSto
 const index=read('index.html');assert.ok(index.includes('Windows 11 VM')&&index.includes('Chưa chạy cho đến khi được triển khai'));
 const compose=read('compose.yaml');assert.ok(compose.includes('dockurr/windows')&&compose.includes('/dev/kvm:/dev/kvm')&&compose.includes('myo_windows_storage:/storage'));
 assert.ok(!compose.includes('8006:8006'),'Do not publish the console port');assert.ok(compose.includes('basic_auth')&&compose.includes('reverse_proxy windows-vm:8006'));
-assert.ok(read('cloud-pc/Caddyfile').includes('basic_auth'));assert.ok(read('cloud-pc/WINDOWS-VPS.md').includes('No host/client PC filesystem'));
+assert.ok(read('cloud-pc/Caddyfile').includes('basic_auth'));assert.ok(read('cloud-pc/WINDOWS-VPS.md').includes('host home/Downloads folders'));
 assert.ok(read('.gitignore').includes('.env'));
 const c={window:{}};vm.runInNewContext(read('assets/games.js'),c);const games=c.window.MYO_GAMES;assert.ok(Array.isArray(games)&&games.length>=10);
 for(const g of games)assert.ok(g.source.startsWith('https://')&&g.name&&g.publisher&&g.genre);
