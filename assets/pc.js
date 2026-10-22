@@ -78,5 +78,5 @@ function setOpenFile(file){openedFile=file;if(windows.notepad){closeApp('notepad
 function clock(){const d=new Date(),t=d.toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'}),date=d.toLocaleDateString('vi-VN',{day:'2-digit',month:'2-digit'});$('taskbarClock').innerHTML=esc(t)+'<br>'+esc(date);$('desktopClockTop').textContent=d.toLocaleString('vi-VN',{dateStyle:'medium',timeStyle:'short'})}
 document.addEventListener('fullscreenchange',()=>{const b=$('taskbarFullscreen');if(b)b.textContent=document.fullscreenElement?'⤢':'⛶'});
 bindSetup();bindDesktopEvents();fillSetup(cfg);renderProfiles();clock();setInterval(clock,30000);
-window.MYOPC={open:openApp,close:closeApp,fullscreenWindow:openBrowserFullscreen,fullscreenDesktop,notify,getConfig:()=>({...cfg}),setOpenFile,saveNotes,shutdown};
+window.MYOPC={open:openApp,close:closeApp,refresh:(k)=>{if(windows[k]){closeApp(k);openApp(k)}},fullscreenWindow:openBrowserFullscreen,fullscreenDesktop,notify,getConfig:()=>({...cfg}),setOpenFile,saveNotes,shutdown};
 })();
