@@ -26,20 +26,27 @@ set_env() {
   cat "$tmp" > .env; rm -f "$tmp"; chmod 600 .env
 }
 ensure_env() { local key="$1" value="$2"; grep -q "^${key}=" .env || set_env "$key" "$value"; }
+ensure_secret_env() {
+  local key="$1" fresh="$2" old
+  old="$(read_env "$key")"
+  if [[ -z "$old" || "$old" == *REPLACE_* || "$old" == CHANGE_ME ]]; then
+    set_env "$key" "$fresh"
+  fi
+}
 read_env() {
   local key="$1" value
   value="$(grep -m1 "^${key}=" .env | cut -d= -f2- || true)"
   value="${value#\'}"; value="${value%\'}"; value="${value#\"}"; value="${value%\"}"
   printf "%s" "$value"
 }
-ensure_env MYO_SERVER_TOKEN "$(openssl rand -hex 32)"
+ensure_secret_env MYO_SERVER_TOKEN "$(openssl rand -hex 32)"
 ensure_env MYO_CORS_ORIGIN ""
 ensure_env MYO_MAX_FILE_BYTES 67108864
 ensure_env MYO_DEFAULT_DISK_QUOTA_BYTES 1073741824
 ensure_env MYO_PROXY_USER myo
-ensure_env MYO_PROXY_PASSWORD "$(openssl rand -hex 24)"
+ensure_secret_env MYO_PROXY_PASSWORD "$(openssl rand -hex 24)"
 ensure_env MYO_WINDOWS_USER myo
-ensure_env MYO_WINDOWS_PASSWORD "$(openssl rand -hex 24)"
+ensure_secret_env MYO_WINDOWS_PASSWORD "$(openssl rand -hex 24)"
 ensure_env MYO_VM_RAM 8G
 ensure_env MYO_VM_CPU_CORES 4
 ensure_env MYO_VM_DISK_SIZE 128G
