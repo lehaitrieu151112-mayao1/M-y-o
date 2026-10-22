@@ -1,37 +1,40 @@
 # M-Y-O Windows VPS (KVM/QEMU)
 
-This project starts a real Windows 11 guest VM with a persistent virtual disk and a browser-accessible console. The website is a portal; it does not itself rent, create or power the physical VPS.
+This stack runs an actual Windows 11 guest VM on a Linux cloud server. The webpage is a connection portal; the Windows operating system and applications run inside the VM, not inside the browser page.
 
 ## Host requirements
 
-- Linux x86_64 with `/dev/kvm` and `/dev/net/tun`; the provider must allow hardware or nested virtualization.
-- Default guest allocation is 6 vCPU, 16 GB RAM and a 256 GB virtual disk. Reserve extra resources for the Linux host; a host with about 32 GB RAM, 8 vCPU or more and ample SSD is recommended.
+- Linux x86_64 with `/dev/kvm` and `/dev/net/tun`; the provider must allow KVM or nested virtualization.
+- Default guest allocation: 6 vCPU, 16 GB RAM, 256 GB virtual disk.
+- Recommended physical host: at least 32 GB RAM, 8 vCPU or more, and adequate SSD headroom.
 - Docker Engine and Docker Compose v2.
-- A public DNS record pointing to the VPS, and inbound TCP 80/443 allowed by provider and host firewall.
+- A public DNS hostname pointing to the server and inbound TCP 80/443 plus UDP 443.
 
-GitHub/Vercel do not supply the VM host.
+Neither GitHub nor Vercel supplies the Windows VM host.
 
-## Deploy
+## Install directly on the cloud server
 
-Run on your Linux VPS from the repository root:
+Open the provider's web console or SSH terminal for the Linux VPS. Run these commands in that remote shell, not on your personal PC:
 
 ```bash
-chmod +x scripts/bootstrap-windows-pc.sh
-./scripts/bootstrap-windows-pc.sh pc.example.com
+curl -fsSLO https://raw.githubusercontent.com/lehaitrieu151112-mayao1/M-y-o/main/install-vps.sh
+sudo bash install-vps.sh pc.example.com
 ```
 
-Replace `pc.example.com` with your real public hostname. The script checks KVM/TUN, generates credentials into a private `.env` file (mode 600), hashes the gateway password, validates Compose and launches the services. Save the gateway and Windows credentials printed to the host terminal.
+Replace the example hostname with your actual DNS name. The installer checks KVM/TUN and host capacity, installs Docker on supported Ubuntu/Debian hosts if needed, fetches this repo, and calls the credential/bootstrap script. It will stop with an error instead of removing conflicting container packages or taking over occupied ports.
 
-First boot downloads Windows setup media and can take 10–40 minutes or longer. Follow `docker compose logs -f windows-vm`. When Windows is ready, open `https://pc.example.com`, authenticate at the gateway, then use the remote console.
+Save both credential pairs printed in the remote terminal. The first Windows setup can take 10–40 minutes or longer. Follow logs with `cd /opt/myo-windows-vps && docker compose logs -f windows-vm`.
 
-## Files stay in the remote PC
+## Connect and use Windows
 
-The VM disk lives in named volume `myo_windows_storage`. No host home/Downloads folders or the user's local Windows filesystem are mounted into the guest. Files downloaded inside the Windows VM stay on its virtual disk.
+Open `https://pc.example.com`, sign in to the gateway, and interact with the actual Windows console in your browser. Windows, browser sessions, installed applications, and downloaded files live on the cloud VM.
 
-Only Caddy's ports 80/443 are published. Port 8006 stays inside Docker's private bridge. The disk API binds to host loopback. Do not add host-folder bind mounts to `windows-vm`.
+## Persistent disk and safety
 
-## Persistence and limits
-
-`docker compose down` preserves named volumes; `docker compose down -v` deletes the Windows disk and other named-volume data. Back up `myo_windows_storage` before risky changes.
-
-GPU passthrough is not configured; this setup is intended as a general-purpose remote Windows desktop, not a high-performance GPU workstation. Windows activation/licensing remains the owner's responsibility. This is one personal VM, not a multi-tenant VPS platform.
+- The guest system disk is the named volume `myo_windows_storage`.
+- No local computer directories are mounted into the guest.
+- `docker compose down` preserves named volumes. `docker compose down -v` deletes the Windows disk.
+- Port 8006 stays on Docker's private network; only Caddy's HTTPS gateway is published.
+- Keep `.env` credentials private. Do not commit them.
+- GPU passthrough is not set up. This configuration is a general-purpose remote desktop, not a GPU workstation or multi-tenant provider.
+- Use legally licensed Windows media and activation.
