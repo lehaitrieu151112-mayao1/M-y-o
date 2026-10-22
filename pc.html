@@ -25,10 +25,10 @@
 <aside class="card">
 <h2>🛠️ Khởi chạy Windows VM thật</h2><p class="sub">Cần Linux VPS x86_64 có KVM, đủ RAM/SSD, domain và Docker Compose v2.</p>
 <ol class="steps">
-<li>Trỏ DNS domain (ví dụ <code>pc.example.com</code>) về IP công khai VPS, mở cổng 80 và 443.</li>
-<li>Tải repo lên VPS, vào thư mục gốc, chạy <code>chmod +x scripts/bootstrap-windows-pc.sh</code>.</li>
-<li>Chạy <code>./scripts/bootstrap-windows-pc.sh pc.example.com</code>. Script tạo mật khẩu ngẫu nhiên và chạy Windows 11 VM + Caddy HTTPS.</li>
-<li>Đợi Windows cài đặt lần đầu trong log container; khi sẵn sàng, mở domain HTTPS.</li>
+<li>Thuê Linux VPS cloud x86_64 hỗ trợ KVM/TUN; trỏ DNS domain (ví dụ <code>pc.example.com</code>) về IP công khai và mở cổng 80/443.</li>
+<li>Mở SSH hoặc web console của VPS. Đây là terminal trên máy chủ cloud, không phải terminal trên máy cá nhân.</li>
+<li>Chạy <code>curl -fsSLO https://raw.githubusercontent.com/lehaitrieu151112-mayao1/M-y-o/main/install-vps.sh &amp;&amp; sudo bash install-vps.sh pc.example.com</code>.</li>
+<li>Đợi trình cài hoàn tất và Windows khởi động lần đầu; xem trạng thái bằng <code>cd /opt/myo-windows-vps &amp;&amp; docker compose logs -f windows-vm</code>.</li>
 <li>Đăng nhập cổng bảo vệ rồi đăng nhập Windows bằng thông tin in ra ở terminal. Tệp tải sẽ lưu trên đĩa VM.</li>
 </ol>
 <div class="status"><span class="dot" style="background:#7ce3bb"></span><div><strong>Code đã có ≠ VM đã chạy</strong><p>Chưa có host KVM được cấp phát trong phiên này. GitHub/Vercel không tự khởi chạy Windows VM.</p></div></div>
