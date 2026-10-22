@@ -12,8 +12,9 @@ const required = [
 ];
 for (const file of required) assert.ok(fs.existsSync(path.join(root,file)), 'Missing '+file);
 const read = file => fs.readFileSync(path.join(root,file),'utf8');
+
 for (const file of ['index.html','pc.html']) {
-  const scripts = [...read(file).matchAll(/<script(?![^>]*\\bsrc=)[^>]*>([\\s\\S]*?)<\\/script>/gi)];
+  const scripts = [...read(file).matchAll(/<script[^>]*>([\s\S]*?)<\/script>/gi)];
   for (const match of scripts) assert.doesNotThrow(() => new Function(match[1]), 'Invalid inline script in '+file);
 }
 assert.doesNotThrow(() => new Function(read('assets/pwa.js')));
@@ -52,10 +53,12 @@ for (const file of [
 ]) assert.ok(!fs.existsSync(path.join(root,file)),'Obsolete game/legacy file remains: '+file);
 
 const sw = read('sw.js');
-const match = sw.match(/const CORE = (\\[[\\s\\S]*?\\]);/);
-assert.ok(match,'Service worker core cache list missing');
-for (const item of JSON.parse(match[1])) {
-  const file = item==='/' ? 'index.html' : item.replace(/^\\//,'');
+const start = sw.indexOf('const CORE = ');
+const open = sw.indexOf('[',start);
+const end = sw.indexOf('];',open);
+assert.ok(start>=0 && open>start && end>open,'Service worker core cache list missing');
+for (const item of JSON.parse(sw.slice(open,end+1))) {
+  const file = item==='/' ? 'index.html' : item.startsWith('/') ? item.slice(1) : item;
   assert.ok(fs.existsSync(path.join(root,file)),'Missing cached file '+file);
 }
 console.log('M-Y-O smoke checks passed: Windows VPS portal, protected KVM guest, persistent storage, and no game hub.');
