@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#080d18">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="assets/app-icon.svg" type="image/svg+xml">
-<title>M-Y-O Game Hub — PC Windows</title>
+<title>M-Y-O Game Hub — Cloud PC</title>
 <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
@@ -18,23 +18,23 @@
 <main>
 <section class="hero">
   <div class="hero-copy">
-    <div class="eyebrow">PC GAMING WORKSPACE</div>
+    <div class="eyebrow">GAME CATALOGUE · CLOUD PC</div>
     <h1>Thư viện game bên ngoài.<br><span>PC của bạn bên trong.</span></h1>
-    <p>Khám phá các game PC Windows và thông tin nhà phát hành. Khi muốn mở desktop, nhấn <b>Tạo PC</b> để chọn CPU, GPU profile, RAM, SSD và độ phân giải rồi vào giao diện PC.</p>
+    <p>Khám phá game PC và nguồn nhà phát hành. Nút <b>Kết nối PC</b> mở desktop Linux từ xa thật sau khi máy chủ đã được triển khai; website này không giả lập hoặc tự cấp phát CPU/GPU/RAM.</p>
     <div class="hero-actions"><a class="button button-primary button-large" href="pc.html">＋ Tạo PC <span aria-hidden="true">→</span></a><a class="button button-secondary button-large" href="#library">Xem game PC</a></div>
-    <div class="hero-points"><span>✓ Chỉ game PC Windows</span><span>✓ Cấu hình VPS-style</span><span>✓ Chrome & toàn màn hình</span></div>
+    <div class="hero-points"><span>✓ Nguồn game chính thức</span><span>✓ Desktop Linux từ xa khi đã triển khai</span><span>✓ Tệp tải lưu trên host</span></div>
   </div>
   <div class="hero-visual" aria-hidden="true"><div class="monitor"><div class="monitor-top"><span></span><span></span><span></span></div><div class="monitor-screen"><div class="screen-orb"></div><div class="screen-label">MYO PC</div><div class="screen-mini">DESKTOP WORKSPACE</div><div class="screen-icons"><b>🌐</b><b>📁</b><b>🎮</b><b>⚙️</b></div></div><div class="monitor-stand"></div></div><div class="floating-chip chip-one">⚡ PC profile</div><div class="floating-chip chip-two">⛶ Full screen</div></div>
-  <div class="hero-stats"><div><strong>12</strong><span>game PC mẫu</span></div><div><strong>4–16</strong><span>vCPU profile</span></div><div><strong>8–64 GB</strong><span>RAM profile</span></div><div><strong>0₫</strong><span>demo giao diện</span></div></div>
+  <div class="hero-stats"><div><strong>12</strong><span>game PC mẫu</span></div><div><strong>Linux</strong><span>desktop từ xa</span></div><div><strong>SSD</strong><span>volume lưu bền vững</span></div><div><strong>Docker</strong><span>tự triển khai trên host</span></div></div>
 </section>
 <section class="library-section" id="library">
-  <div class="section-head"><div><div class="eyebrow">GAME CATALOGUE</div><h2>Thư viện game PC</h2><p>Danh mục có liên kết nhà phát hành/cửa hàng thật. Nguồn tải chỉ được mở sau khi vào desktop PC.</p></div><a class="text-link" href="pc.html">Đi tới PC →</a></div>
+  <div class="section-head"><div><div class="eyebrow">GAME CATALOGUE</div><h2>Thư viện game PC</h2><p>Danh mục liên kết nhà phát hành/cửa hàng thật. Muốn dùng trình duyệt tải tệp bên trong máy từ xa, triển khai Cloud PC rồi kết nối.</p></div><a class="text-link" href="pc.html">Đi tới PC →</a></div>
   <div class="filters-row"><input id="gameSearch" type="search" placeholder="⌕  Tìm tên game hoặc thể loại..." aria-label="Tìm game"><select id="genreFilter" aria-label="Lọc thể loại"><option value="all">Tất cả thể loại</option></select><span id="gameCount" class="count-pill">Đang tải…</span></div>
   <div class="game-grid" id="gameGrid"><div class="empty-loading">Đang tải thư viện game…</div></div>
 </section>
-<section class="how-section"><div class="section-head"><div><div class="eyebrow">CÁCH DÙNG</div><h2>Từ thư viện tới PC</h2></div></div><div class="steps-grid"><article class="step-card"><span>01</span><div class="step-icon">🎮</div><h3>Chọn game</h3><p>Xem mô tả và thông tin cấu hình tham khảo. Các liên kết tải thật nằm trong desktop PC.</p></article><article class="step-card"><span>02</span><div class="step-icon">🖥️</div><h3>Tạo PC</h3><p>Chọn hệ điều hành, CPU, GPU profile, RAM, SSD và độ phân giải — không cần nhập tên game/URL.</p></article><article class="step-card"><span>03</span><div class="step-icon">🌐</div><h3>Mở Chrome / Game Hub</h3><p>Trong desktop, mở Chrome hoặc thư viện game. Bấm nguồn chính thức để mở trang web thật trong tab mới.</p></article></div></section>
+<section class="how-section"><div class="section-head"><div><div class="eyebrow">CÁCH DÙNG</div><h2>Từ thư viện tới PC</h2></div></div><div class="steps-grid"><article class="step-card"><span>01</span><div class="step-icon">🎮</div><h3>Chọn game</h3><p>Xem mô tả và thông tin cấu hình tham khảo. Các liên kết tải thật nằm trong desktop PC.</p></article><article class="step-card"><span>02</span><div class="step-icon">🖥️</div><h3>Triển khai Cloud PC</h3><p>Chạy Docker Compose trên một Linux host thật. Dữ liệu người dùng được giữ trong volume trên host.</p></article><article class="step-card"><span>03</span><div class="step-icon">🌐</div><h3>Kết nối desktop từ xa</h3><p>Đăng nhập vào Linux desktop qua HTTPS. Trình duyệt và tệp tải chạy trong container từ xa, không ở máy Windows của bạn.</p></article></div></section>
 </main>
-<footer class="site-footer"><span class="brand"><span class="brand-mark small-mark">MYO</span><span>M-Y-O <small>GAME HUB</small></span></span><span>Prototype PC Windows · Chưa phải VPS/cloud gaming thật.</span><a href="pc.html">Tạo PC</a></footer>
+<footer class="site-footer"><span class="brand"><span class="brand-mark small-mark">MYO</span><span>M-Y-O <small>GAME HUB</small></span></span><span>Cloud PC Linux · cần triển khai trên máy chủ thật.</span><a href="pc.html">Tạo PC</a></footer>
 </div>
 <div class="modal-backdrop" id="gameModal" hidden><section class="game-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" id="modalClose" aria-label="Đóng">×</button><div class="modal-icon" id="modalIcon">🎮</div><div class="eyebrow">GIỚI THIỆU GAME PC</div><h2 id="modalTitle">Game</h2><p id="modalDescription"></p><dl class="modal-details"><div><dt>Thể loại</dt><dd id="modalGenre"></dd></div><div><dt>Nhà phát hành</dt><dd id="modalPublisher"></dd></div><div><dt>Hỗ trợ / cấu hình</dt><dd id="modalRequirements"></dd></div></dl><a class="button button-primary" href="pc.html">Tạo PC để mở nguồn chính thức →</a><p class="modal-note">Game yêu cầu tài khoản/launcher hoặc mua bản quyền nếu nhà phát hành quy định.</p></section></div>
 <script src="assets/games.js"></script><script src="assets/app.js"></script><script src="assets/pwa.js" defer></script>

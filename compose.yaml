@@ -10,7 +10,7 @@ services:
       PORT: "8787"
       NODE_ENV: "production"
       MYO_DATA_DIR: "/data"
-      MYO_SERVER_TOKEN: ${MYO_SERVER_TOKEN:?Set a long random MYO_SERVER_TOKEN in .env}
+      MYO_SERVER_TOKEN: ${MYO_SERVER_TOKEN:?Set MYO_SERVER_TOKEN in .env}
       MYO_CORS_ORIGIN: ${MYO_CORS_ORIGIN:-}
       MYO_MAX_FILE_BYTES: ${MYO_MAX_FILE_BYTES:-67108864}
       MYO_DEFAULT_DISK_QUOTA_BYTES: ${MYO_DEFAULT_DISK_QUOTA_BYTES:-1073741824}
@@ -23,6 +23,44 @@ services:
     read_only: true
     tmpfs:
       - /tmp:size=32m,mode=1777
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:'+process.env.PORT+'/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  myo-linux-pc:
+    build:
+      context: ./cloud-pc
+      dockerfile: Dockerfile
+    image: myo-linux-pc:local
+    container_name: myo-linux-pc
+    restart: unless-stopped
+    shm_size: "1gb"
+    ports:
+      - "127.0.0.1:${MYO_PC_PORT:-13000}:3000"
+    environment:
+      PUID: "${PUID:-1000}"
+      PGID: "${PGID:-1000}"
+      TZ: "${TZ:-Asia/Ho_Chi_Minh}"
+      TITLE: "M-Y-O Cloud PC"
+      CUSTOM_USER: "${MYO_PC_USER:-myo}"
+      PASSWORD: ${MYO_PC_PASSWORD:?Set MYO_PC_PASSWORD in .env}
+      FM_HOME: "/config/Downloads"
+    volumes:
+      - myo_pc_config:/config
+      - myo_pc_shared:/shared
+    healthcheck:
+      test: ["CMD-SHELL", 'curl -fsSI --max-time 8 -u "$${CUSTOM_USER}:$${PASSWORD}" http://127.0.0.1:3000/ >/dev/null']
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+
 volumes:
   myo_disk_data:
     name: myo_disk_data
+  myo_pc_config:
+    name: myo_pc_config
+  myo_pc_shared:
+    name: myo_pc_shared

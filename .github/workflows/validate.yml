@@ -9,6 +9,14 @@ permissions:
 jobs:
   smoke-test:
     runs-on: ubuntu-latest
+    env:
+      MYO_SERVER_TOKEN: test-token-not-for-production-0000000000000000000000
+      MYO_PC_USER: ci-user
+      MYO_PC_PASSWORD: ci-only-password-not-for-production
+      MYO_PC_PORT: "13000"
+      PUID: "1000"
+      PGID: "1000"
+      TZ: Asia/Ho_Chi_Minh
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -18,3 +26,5 @@ jobs:
         run: |
           node scripts/smoke-test.mjs
           npm --prefix server run check
+      - name: Validate Docker Compose configuration
+        run: docker compose config --quiet

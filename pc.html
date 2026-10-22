@@ -2,118 +2,52 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080e1c">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="assets/app-icon.svg" type="image/svg+xml">
-<title>M-Y-O Virtual PC</title>
-<link rel="stylesheet" href="assets/pc.css">
-<link rel="stylesheet" href="assets/pc-downloads.css">
+<meta name="theme-color" content="#0b1020"><meta name="description" content="Kết nối M-Y-O Cloud PC đang chạy trên máy chủ của bạn.">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="assets/app-icon.svg" type="image/svg+xml">
+<title>M-Y-O Cloud PC</title>
+<style>
+:root{color-scheme:dark;--bg:#080d19;--panel:#111b2d;--line:#293851;--text:#edf4ff;--muted:#a7b6ce;--blue:#67a2ff;--green:#7ce3bb}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 10% 0,#18345c 0,transparent 42%),var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}a{color:#a9cdff}button,input{font:inherit}.wrap{width:min(1040px,calc(100% - 32px));margin:auto;padding:24px 0 48px}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:18px}.brand{display:flex;align-items:center;gap:12px;color:var(--text);text-decoration:none;font-weight:800;letter-spacing:.04em}.logo{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:linear-gradient(145deg,#7fb8ff,#4c70ff);color:#07101f}.top a:last-child{color:var(--muted)}.hero{padding:56px 0 26px;max-width:820px}.eyebrow{font-size:.78rem;letter-spacing:.18em;color:var(--green);font-weight:800}.hero h1{font-size:clamp(2.3rem,6vw,4.5rem);line-height:1.05;letter-spacing:-.045em;margin:14px 0}.hero p{color:var(--muted);font-size:1.08rem;max-width:760px}.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}.card{background:linear-gradient(145deg,#15223a,#0e1728);border:1px solid var(--line);border-radius:18px;padding:24px;min-width:0}.card h2{margin:0 0 8px;font-size:1.25rem}.sub{color:var(--muted);margin:0 0 18px}.label{display:block;font-weight:700;margin:12px 0 7px}.inputrow{display:flex;gap:10px}.inputrow input{min-width:0;flex:1;background:#080f1e;border:1px solid #425673;color:var(--text);border-radius:10px;padding:13px 14px;outline:none}.inputrow input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #67a2ff22}.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:10px;padding:12px 16px;cursor:pointer;font-weight:800;text-decoration:none}.primary{background:linear-gradient(120deg,#72b6ff,#8797ff);color:#071020}.secondary{background:#1b2b45;color:var(--text);border:1px solid #354a68}.note{font-size:.88rem;color:var(--muted)}.status{display:flex;align-items:flex-start;gap:12px;padding:14px;border:1px solid var(--line);border-radius:12px;background:#091323;margin-top:15px}.dot{width:10px;height:10px;border-radius:50%;background:#f2bf69;flex:none;margin-top:7px}.status strong{display:block}.status p{margin:4px 0 0;color:var(--muted);font-size:.92rem}.steps{padding-left:22px;color:var(--muted)}.steps li{margin:0 0 12px}.steps code{color:#d6e4ff;background:#0a1221;padding:2px 5px;border-radius:4px;word-break:break-all}.pill{display:inline-block;border:1px solid #3d5a79;border-radius:999px;color:#c8dcf8;font-size:.78rem;padding:4px 9px}.cardsmall{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.small{border:1px solid var(--line);border-radius:12px;padding:12px;color:var(--muted);font-size:.85rem}.small b{display:block;color:var(--text);font-size:.98rem;margin-bottom:4px}footer{margin-top:24px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}@media(max-width:760px){.grid{grid-template-columns:1fr}.hero{padding-top:38px}.inputrow{flex-direction:column}.cardsmall{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}}
+</style>
 </head>
 <body>
-<section id="setupPage" class="setup-shell">
-  <header class="setup-top">
-    <a class="brand" href="index.html"><span class="brand-logo">MYO</span><span>M-Y-O VIRTUAL PC<small>PC WORKSPACE · GAME HUB</small></span></a>
-    <div class="top-actions"><span class="tag">BẢN MÔ PHỎNG MIỄN PHÍ</span><a class="quiet-link" href="index.html">← Thư viện game</a></div>
-  </header>
-  <section class="setup-hero">
-    <div class="eyebrow">PC PROVISIONING</div>
-    <h1>Tạo PC của bạn.</h1>
-    <p>Chọn cấu hình giống trang tạo VPS, nhấn khởi chạy và vào ngay desktop có Google Chrome, File Explorer, Cài đặt, Task Manager và Game Hub. Không cần nhập tên game hoặc URL để tạo PC.</p>
-    <div class="hero-badges"><span>🖥️ Windows profile</span><span>⚙️ CPU · GPU · RAM · SSD</span><span>🌐 Chrome-like browser</span><span>⛶ Full screen</span></div>
-  </section>
-  <div class="setup-layout">
-    <section class="setup-card">
-      <div class="card-heading"><span class="emoji">🛠️</span><div><h2>Cấu hình PC</h2><p>Thay đổi cấu hình để lập hồ sơ PC. Tên máy được đặt tự động.</p></div></div>
-      <div class="field-grid">
-        <div class="field"><label for="cfgOs">Hệ điều hành</label><select id="cfgOs"><option value="Windows 11 Pro" selected>Windows 11 Pro</option><option value="Windows 10 Pro">Windows 10 Pro</option></select></div>
-        <div class="field"><label for="cfgRegion">Vùng máy chủ (dự kiến)</label><select id="cfgRegion"><option value="Singapore" selected>Singapore · Châu Á</option><option value="Tokyo">Tokyo · Nhật Bản</option><option value="Frankfurt">Frankfurt · Đức</option><option value="Virginia">Virginia · Hoa Kỳ</option></select></div>
-        <div class="field"><label for="cfgCpu">CPU / vCPU</label><select id="cfgCpu"><option value="4">4 vCPU · Cơ bản</option><option value="6">6 vCPU · Cân bằng</option><option value="8" selected>8 vCPU · Hiệu năng</option><option value="12">12 vCPU · Cao</option><option value="16">16 vCPU · Enthusiast</option></select></div>
-        <div class="field"><label for="cfgGpu">GPU profile</label><select id="cfgGpu"><option value="integrated">Đồ họa tích hợp</option><option value="gtx1660">GTX 1660 · mô phỏng</option><option value="rtx3060">RTX 3060 · mô phỏng</option><option value="rtx4070" selected>RTX 4070 · mô phỏng</option><option value="rtx4090">RTX 4090 · mô phỏng</option></select><span class="help">Hồ sơ hiển thị, chưa cấp GPU thật.</span></div>
-        <div class="field"><label for="cfgRam">RAM</label><select id="cfgRam"><option value="8">8 GB</option><option value="16" selected>16 GB</option><option value="32">32 GB</option><option value="64">64 GB</option></select></div>
-        <div class="field"><label for="cfgDisk">SSD mô phỏng</label><select id="cfgDisk"><option value="128">128 GB</option><option value="256">256 GB</option><option value="512" selected>512 GB</option><option value="1024">1 TB</option><option value="2048">2 TB</option></select></div>
-        <div class="field"><label for="cfgResolution">Độ phân giải</label><select id="cfgResolution"><option value="1280x720">1280 × 720</option><option value="1920x1080" selected>1920 × 1080</option><option value="2560x1440">2560 × 1440</option><option value="3840x2160">3840 × 2160</option></select></div>
-        <div class="field"><label for="cfgQuality">Chất lượng đồ họa mặc định</label><select id="cfgQuality"><option value="medium">Trung bình</option><option value="high" selected>Cao</option><option value="ultra">Ultra</option></select></div>
-      </div>
-      <div class="setup-actions"><button class="primary" id="launchPcBtn" type="button">Tạo PC & khởi chạy →</button><button class="secondary" id="resetSetupBtn" type="button">Khôi phục mặc định</button></div>
-      <div class="feedback" id="setupFeedback" aria-live="polite"></div>
-    </section>
-    <aside class="setup-card">
-      <div class="card-heading"><span class="emoji">📋</span><div><h2>Tóm tắt cấu hình</h2><p>Cập nhật trực tiếp khi đổi lựa chọn.</p></div></div>
-      <div class="summary-list">
-        <div class="summary-line"><span>Hệ điều hành</span><strong id="sumOs">Windows 11 Pro</strong></div>
-        <div class="summary-line"><span>CPU</span><strong id="sumCpu">8 vCPU</strong></div>
-        <div class="summary-line"><span>GPU</span><strong id="sumGpu">RTX 4070</strong></div>
-        <div class="summary-line"><span>RAM</span><strong id="sumRam">16 GB</strong></div>
-        <div class="summary-line"><span>SSD</span><strong id="sumDisk">512 GB</strong></div>
-        <div class="summary-line"><span>Độ phân giải</span><strong id="sumRes">1920 × 1080</strong></div>
-        <div class="summary-line"><span>Vùng</span><strong id="sumRegion">Singapore</strong></div>
-      </div>
-      <div class="price-block"><strong>0₫</strong><span>Miễn phí cho demo giao diện. Không tạo máy chủ thuê từ nút này.</span></div>
-      <h3 class="saved-title">PC đã lưu</h3>
-      <div class="instances" id="savedInstances"><div class="empty-state">Chưa có PC nào được lưu.</div></div>
-      <div class="warning">Minh bạch: đây là desktop mô phỏng trong trình duyệt, chưa phải VPS Windows đang chạy thật. Nó không cấp GPU/RAM/SSD và không chạy game Windows trực tiếp. Cloud gaming thật cần máy chủ có GPU; chi phí sẽ được xác nhận trước khi triển khai.</div>
-    </aside>
-  </div>
+<div class="wrap">
+<header class="top"><a class="brand" href="index.html"><span class="logo">MYO</span><span>M-Y-O <small style="display:block;color:#a7b6ce;font-weight:600;font-size:.7rem">CLOUD PC</small></span></a><a href="index.html">← Thư viện game</a></header>
+<section class="hero"><div class="eyebrow">REMOTE DESKTOP · REAL SERVER</div><h1>Máy tính từ xa.<br>Không giả lập trong trang web.</h1><p>Trang này không tạo desktop bằng HTML. Nó kết nối tới desktop Linux thật đang chạy trong container trên máy chủ. Trình duyệt, terminal, file manager và tệp tải xuống chạy bên trong máy từ xa.</p><span class="pill">Linux desktop · lưu bền vững · truy cập bằng trình duyệt</span></section>
+<div class="grid">
+<section class="card">
+<h2>🔌 Kết nối máy chủ PC</h2><p class="sub">Nhập địa chỉ HTTPS của M-Y-O Cloud PC đã triển khai. Kết nối mở trong cùng tab này.</p>
+<label class="label" for="pcEndpoint">Địa chỉ máy chủ</label><div class="inputrow"><input id="pcEndpoint" type="url" autocomplete="url" placeholder="https://pc.tenmiencuaban.com" spellcheck="false"><button id="connectBtn" class="btn primary" type="button">Kết nối PC →</button></div>
+<div class="status" role="status" aria-live="polite"><span class="dot"></span><div><strong id="statusTitle">Chưa cấu hình máy chủ</strong><p id="statusText">GitHub/Vercel chỉ lưu và phục vụ website; hiện chưa có địa chỉ host PC được cấp phát trong repo này.</p></div></div>
+<div class="cardsmall"><div class="small"><b>Trình duyệt thật</b>Chạy bên trong desktop Linux</div><div class="small"><b>Tệp tải thật</b>Lưu trên ổ bền vững của máy chủ</div><div class="small"><b>Không giả GPU</b>Hiệu năng phụ thuộc host thực tế</div></div>
+<p class="note">Địa chỉ lưu trong trình duyệt này. Không nhập URL có chứa mật khẩu hoặc token bí mật.</p>
+<button id="forgetBtn" class="btn secondary" type="button">Xóa địa chỉ đã lưu</button>
 </section>
-
-<main id="desktopShell" class="hidden" data-wallpaper="default" aria-label="M-Y-O Virtual PC desktop">
-  <div class="desktop-wallpaper"></div>
-  <div class="desktop-topline"><span id="desktopMachineLabel">MYO-PC-01 · DESKTOP</span><span id="desktopClockTop">DESKTOP SESSION</span></div>
-  <div class="desktop-icons">
-    <button class="desktop-icon" data-open-app="chrome"><span class="glyph chrome-mark"></span><span>Google Chrome</span></button>
-    <button class="desktop-icon" data-open-app="software"><span class="glyph">🛍️</span><span>Ứng dụng có sẵn</span></button>
-    <button class="desktop-icon" data-open-app="downloads"><span class="glyph">⬇️</span><span>Downloads</span></button>
-    <button class="desktop-icon" data-open-app="explorer"><span class="glyph">📁</span><span>File Explorer</span></button>
-    <button class="desktop-icon" data-open-app="drive"><span class="glyph">💽</span><span>Ổ đĩa ảo C:</span></button>
-    <button class="desktop-icon" data-open-app="settings"><span class="glyph">⚙️</span><span>Cài đặt</span></button>
-    <button class="desktop-icon" data-open-app="taskmgr"><span class="glyph">📊</span><span>Task Manager</span></button>
-    <button class="desktop-icon" data-open-app="games"><span class="glyph">🎮</span><span>Game Hub</span></button>
-    <button class="desktop-icon" data-open-app="thispc"><span class="glyph">💻</span><span>This PC</span></button>
-    <button class="desktop-icon" data-open-app="notepad"><span class="glyph">📝</span><span>Notepad</span></button>
-    <button class="desktop-icon" data-open-app="recycle"><span class="glyph">🗑️</span><span>Recycle Bin</span></button>
-  </div>
-  <div id="windowLayer"></div>
-  <section id="startMenu" class="start-menu" hidden>
-    <div class="start-head"><strong>⊞ MYO PC · Start</strong><span id="startProfile">PC đang chạy</span></div>
-    <input id="startSearch" class="start-search" placeholder="Tìm ứng dụng hoặc game..." aria-label="Tìm ứng dụng">
-    <div id="startGrid" class="start-grid">
-      <button data-open-app="chrome"><span class="glyph chrome-mark"></span>Google Chrome</button>
-      <button data-open-app="software"><span class="glyph">🛍️</span>Ứng dụng có sẵn</button>
-      <button data-open-app="downloads"><span class="glyph">⬇️</span>PC Downloads</button>
-      <button data-open-app="explorer"><span class="glyph">📁</span>File Explorer</button>
-      <button data-open-app="drive"><span class="glyph">💽</span>Ổ đĩa ảo C:</button>
-      <button data-open-app="settings"><span class="glyph">⚙️</span>Cài đặt</button>
-      <button data-open-app="taskmgr"><span class="glyph">📊</span>Task Manager</button>
-      <button data-open-app="games"><span class="glyph">🎮</span>Game Hub</button>
-      <button data-open-app="thispc"><span class="glyph">💻</span>This PC</button>
-      <button data-open-app="notepad"><span class="glyph">📝</span>Notepad</button>
-      <button data-open-app="recycle"><span class="glyph">🗑️</span>Recycle Bin</button>
-      <button data-open-app="about"><span class="glyph">ℹ️</span>About PC</button>
-      <button data-open-app="about"><span class="glyph">ℹ️</span>About PC</button>
-    </div>
-    <div class="start-foot"><span id="startMachine">MYO-PC-01</span><button class="mini-button" id="shutdownBtn" type="button">Tắt phiên PC</button></div>
-  </section>
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <footer class="taskbar">
-    <button class="start-button" id="startButton" title="Start">⊞</button>
-    <input class="taskbar-search" id="taskSearch" placeholder="Tìm kiếm" aria-label="Tìm kiếm ứng dụng">
-    <span class="taskbar-divider hide-mobile"></span>
-    <div class="taskbar-apps" id="taskbarApps"></div>
-    <span class="taskbar-spacer"></span>
-    <button id="taskbarFullscreen" title="Toàn màn hình desktop">⛶</button>
-    <button id="taskbarChrome" title="Google Chrome"><span class="chrome-mark small-chrome"></span></button>
-    <div class="taskbar-clock" id="taskbarClock">--:--<br>--/--</div>
-  </footer>
-</main>
-<script src="assets/games.js"></script>
-<script src="assets/pc-drive.js"></script>
-<script src="assets/pc-storage.js"></script>
-<script src="assets/software-apps.js"></script>
-<script src="assets/pc-downloads.js"></script>
-<script src="assets/pc-apps.js"></script>
-<script src="assets/pc-browser.js"></script>
-<script src="assets/pc-explorer.js"></script>
-<script src="assets/pc.js"></script>
+<aside class="card">
+<h2>🛠️ Dựng máy chủ thật</h2><p class="sub">Code triển khai nằm trong repository. Chạy trên Linux VPS hoặc máy Linux có Docker Compose v2.</p>
+<ol class="steps">
+<li>Tải repository M-Y-O về máy chủ Linux.</li>
+<li>Từ thư mục gốc, chạy <code>chmod +x scripts/bootstrap-cloud-pc.sh</code>.</li>
+<li>Chạy <code>./scripts/bootstrap-cloud-pc.sh</code>. Script sinh mật khẩu ngẫu nhiên nếu chưa có <code>.env</code>, sau đó build và chạy desktop + API ổ đĩa.</li>
+<li>Cấu hình domain và HTTPS bằng Caddy. Xem <a href="cloud-pc/README.md">hướng dẫn Cloud PC</a>.</li>
+<li>Mở domain HTTPS rồi đăng nhập bằng thông tin máy chủ đã tạo. File tải sẽ nằm trong phiên Linux từ xa.</li>
+</ol>
+<div class="status"><span class="dot" style="background:#7ce3bb"></span><div><strong>Code đã có ≠ máy chủ đang chạy</strong><p>Repo này không tự thuê host hoặc khởi động container trên Internet. Trước khi deploy lên host thật, trang kết nối sẽ không có địa chỉ để dùng.</p></div></div>
+<a class="btn secondary" href="cloud-pc/README.md">Đọc hướng dẫn triển khai →</a>
+</aside>
+</div>
+<footer><span>M-Y-O Cloud PC · remote desktop thật khi được triển khai</span><span>Không tự cấp phát Windows/GPU hoặc máy chủ trả phí.</span></footer>
+</div>
+<script>
+(()=>{'use strict';
+const KEY='myo_cloud_pc_endpoint_v1';
+const input=document.querySelector('#pcEndpoint'),connect=document.querySelector('#connectBtn'),forget=document.querySelector('#forgetBtn'),title=document.querySelector('#statusTitle'),text=document.querySelector('#statusText');
+function validate(raw){try{const u=new URL(String(raw||'').trim());if(!['https:','http:'].includes(u.protocol)||u.username||u.password||u.pathname!=='/'||u.search||u.hash)return null;if(u.protocol==='http:'&&u.hostname!=='localhost'&&u.hostname!=='127.0.0.1')return null;return u.href.replace(/\/$/,'')}catch{return null}}
+const saved=localStorage.getItem(KEY);if(saved){input.value=saved;title.textContent='Đã lưu địa chỉ PC';text.textContent='Nhấn “Kết nối PC” để mở phiên từ xa. Trạng thái host được xác nhận khi máy chủ phản hồi.'}
+connect.addEventListener('click',()=>{const url=validate(input.value);if(!url){title.textContent='Địa chỉ không hợp lệ';text.textContent='Dùng domain HTTPS, ví dụ https://pc.tenmiencuaban.com. HTTP chỉ được phép cho localhost.';return}localStorage.setItem(KEY,url);location.assign(url)});
+input.addEventListener('keydown',e=>{if(e.key==='Enter')connect.click()});
+forget.addEventListener('click',()=>{localStorage.removeItem(KEY);input.value='';title.textContent='Chưa cấu hình máy chủ';text.textContent='GitHub/Vercel chỉ lưu và phục vụ website; hiện chưa có địa chỉ host PC được cấp phát trong repo này.'});
+})();
+</script>
 <script src="assets/pwa.js" defer></script>
 </body>
 </html>

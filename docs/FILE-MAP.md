@@ -1,32 +1,21 @@
 # File map
 
-## Pages
-- `index.html` — public-facing game discovery, search, filters, game introductions and the “Create PC” entry point.
-- `pc.html` — VPS-style configuration form and desktop workspace.
+## Web application
+- `index.html` — game catalogue.
+- `pc.html` — endpoint connection form; opens a deployed remote desktop in the same tab and contains no fake desktop.
+- `assets/styles.css`, `assets/games.js`, `assets/app.js` — catalogue interface and game data.
+- `manifest.webmanifest`, `sw.js`, `assets/pwa.js` — installable website shell.
 
-## Front-end assets
-- `assets/styles.css` — catalogue page design.
-- `assets/games.js` — curated game catalogue. Each record stores a verified-format HTTPS publisher/store URL (availability and exact PC compatibility still require checking at source).
-- `assets/app.js` — catalogue search/filter and game-introduction modal.
-- `assets/pc.css` — PC setup screen, desktop, taskbar, window chrome, Chrome-like UI, File Explorer and responsive styling.
-- `assets/pc-storage.js` — versionable storage helpers for saved profiles, settings, notes and visited sites using browser local storage.
-- `assets/pc-apps.js` — rendering for Settings, Task Manager, Game Hub, This PC, Notepad and informational panels.
-- `assets/pc-browser.js` — Chrome-style launcher, search form and bookmarks; opens external websites in real browser tabs.
-- `assets/pc-explorer.js` — File Explorer virtual shortcuts and explicit user-authorised local folder/file operations.
-- `assets/pc.js` — setup flow, saved PC profiles, window manager, Start menu, taskbar, fullscreen and app interactions.
-- `assets/pwa.js` — service-worker registration.
-- `assets/app-icon.svg` — application icon.
-- `manifest.webmanifest` — installable web app metadata.
-- `sw.js` — cache-first app shell for offline reopening.
+## Real server
+- `compose.yaml` — starts persistent disk API and remote Linux desktop.
+- `cloud-pc/Dockerfile` — XFCE/Webtop image with browser and download/terminal utilities.
+- `cloud-pc/Caddyfile.example` — HTTPS reverse-proxy example.
+- `cloud-pc/README.md` — setup, connection, operation and backup instructions.
+- `scripts/bootstrap-cloud-pc.sh` — creates private credentials and starts services.
+- `.env.example` — placeholders only; keep live credentials in ignored `.env`.
+- `server/index.mjs` — authenticated persistent disk API with path normalization and quota checks.
+- `server/Dockerfile` and `server/test/api.test.mjs` — container image and API integration tests.
 
-- `assets/software-apps.js` — official Windows software pages and launcher catalog.
-- `assets/pc-downloads.js` — PC Downloads records, shortcut creation, metadata import/copy and JSON manifest export.
-- `assets/pc-downloads.css` — styling for software catalogue and download records.
-- `downloads/software-catalog.json` and `downloads/games-catalog.json` — GitHub catalog snapshots.
-- `downloads/apps/*.url` and `downloads/games/*.url` — Windows Internet Shortcut files that open official sources.
-
-## Documentation and checks
-- `docs/USAGE.md` — how to try the app and understand each operation.
-- `docs/REAL-VPS-ROADMAP.md` — requirements to move from local simulation to a real remote PC.
-- `scripts/smoke-test.mjs` — static sanity checks.
-- `.github/workflows/validate.yml` — runs the sanity checks on pushes and pull requests.
+## Validation
+- `scripts/smoke-test.mjs` — checks the connection page, deployment files and absence of legacy simulated PC assets.
+- `.github/workflows/validate.yml` — static smoke tests, disk API tests and Compose config validation.

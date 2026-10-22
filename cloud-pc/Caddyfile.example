@@ -1,0 +1,6 @@
+# Install Caddy on the Linux VPS host (not inside the desktop container).
+# Point this domain at the VPS public IP and replace pc.example.com.
+pc.example.com {
+    encode zstd gzip
+    reverse_proxy 127.0.0.1:13000
+}
