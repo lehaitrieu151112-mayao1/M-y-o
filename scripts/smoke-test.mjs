@@ -1,24 +1,61 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import vm from 'node:vm';
 import assert from 'node:assert/strict';
-const root=process.cwd();
-const required=['index.html','pc.html','manifest.webmanifest','sw.js','assets/styles.css','assets/games.js','assets/app.js','assets/pwa.js','cloud-pc/Caddyfile','cloud-pc/Caddyfile.example','cloud-pc/WINDOWS-VPS.md','scripts/bootstrap-windows-pc.sh','.env.example','compose.yaml','server/index.mjs','server/package.json','server/Dockerfile','server/test/api.test.mjs'];
-for(const f of required)assert.ok(fs.existsSync(path.join(root,f)),'Missing '+f);
-const read=f=>fs.readFileSync(path.join(root,f),'utf8');
-for(const f of ['assets/games.js','assets/app.js','assets/pwa.js'])assert.doesNotThrow(()=>new Function(read(f)));
+
+const root = process.cwd();
+const required = [
+  'index.html','pc.html','manifest.webmanifest','sw.js','assets/pwa.js','assets/app-icon.svg',
+  'cloud-pc/Caddyfile','cloud-pc/Caddyfile.example','cloud-pc/WINDOWS-VPS.md',
+  'scripts/bootstrap-windows-pc.sh','.env.example','compose.yaml',
+  'server/index.mjs','server/package.json','server/Dockerfile','server/test/api.test.mjs',
+  'downloads/software-catalog.json'
+];
+for (const file of required) assert.ok(fs.existsSync(path.join(root,file)), 'Missing '+file);
+const read = file => fs.readFileSync(path.join(root,file),'utf8');
+for (const file of ['index.html','pc.html']) {
+  const scripts = [...read(file).matchAll(/<script(?![^>]*\\bsrc=)[^>]*>([\\s\\S]*?)<\\/script>/gi)];
+  for (const match of scripts) assert.doesNotThrow(() => new Function(match[1]), 'Invalid inline script in '+file);
+}
+assert.doesNotThrow(() => new Function(read('assets/pwa.js')));
 assert.ok(read('scripts/bootstrap-windows-pc.sh').includes('/dev/kvm'));
-assert.equal(JSON.parse(read('manifest.webmanifest')).name,'M-Y-O Game Hub — PC Workspace');
-const pc=read('pc.html');assert.ok(pc.includes('pcEndpoint')&&pc.includes('location.assign(url)')&&pc.includes('KVM / QEMU'));
-for(const v of ['desktopShell','windowLayer','cfgGpu','MYOVirtualDisk','MYOPCStorage','assets/pc-drive.js','assets/pc-browser.js','data-open-app=','setupPage'])assert.ok(!pc.includes(v),'Fake desktop ref '+v);
-const index=read('index.html');assert.ok(index.includes('Windows 11 VM')&&index.includes('Chưa chạy cho đến khi được triển khai'));
-const compose=read('compose.yaml');assert.ok(compose.includes('dockurr/windows')&&compose.includes('/dev/kvm:/dev/kvm')&&compose.includes('myo_windows_storage:/storage'));
-assert.ok(!compose.includes('8006:8006'),'Do not publish the console port');assert.ok(read('cloud-pc/Caddyfile').includes('basic_auth')&&read('cloud-pc/Caddyfile').includes('reverse_proxy windows-vm:8006'));
-assert.ok(read('cloud-pc/Caddyfile').includes('basic_auth'));assert.ok(read('cloud-pc/WINDOWS-VPS.md').includes('host home/Downloads folders'));
+assert.ok(read('scripts/bootstrap-windows-pc.sh').includes('ensure_env MYO_VM_RAM 16G'));
+assert.ok(read('compose.yaml').includes('16G') && read('compose.yaml').includes('256G'));
+assert.ok(read('compose.yaml').includes(':-6}'));
+assert.equal(JSON.parse(read('manifest.webmanifest')).name,'M-Y-O Windows VPS');
+
+const index = read('index.html');
+assert.ok(index.includes('VPS Windows') && index.includes('KVM') && index.includes('connectForm'));
+assert.ok(index.includes('GitHub/Vercel chỉ lưu') && index.includes('16 GB RAM'));
+const pc = read('pc.html');
+assert.ok(pc.includes('pcEndpoint') && pc.includes('location.assign(url)') && pc.includes('KVM / QEMU'));
+assert.ok(pc.includes('WINDOWS VPS') && pc.includes('Trang chủ VPS'));
+const compose = read('compose.yaml');
+assert.ok(compose.includes('dockurr/windows') && compose.includes('/dev/kvm:/dev/kvm') && compose.includes('myo_windows_storage:/storage'));
+assert.ok(!compose.includes('8006:8006'),'Do not publish the console port');
+const caddy = read('cloud-pc/Caddyfile');
+assert.ok(caddy.includes('basic_auth') && caddy.includes('reverse_proxy windows-vm:8006'));
+assert.ok(read('cloud-pc/WINDOWS-VPS.md').includes('host home/Downloads folders'));
 assert.ok(read('.gitignore').includes('.env'));
-const c={window:{}};vm.runInNewContext(read('assets/games.js'),c);const games=c.window.MYO_GAMES;assert.ok(Array.isArray(games)&&games.length>=10);
-for(const g of games)assert.ok(g.source.startsWith('https://')&&g.name&&g.publisher&&g.genre);
-const sw=read('sw.js'),cs=sw.indexOf('const CORE=['),ce=sw.indexOf('];',cs);assert.ok(cs>=0&&ce>cs);
-for(const item of sw.slice(cs+'const CORE=['.length,ce).split("'").filter((v,i)=>i%2===1)){const f=item==='/'?'index.html':item.split('/').filter(Boolean).join('/');assert.ok(fs.existsSync(path.join(root,f)),'Missing cached file '+f)}
-for(const f of ['assets/pc.css','assets/pc-downloads.css','assets/pc-storage.js','assets/pc-drive.js','assets/pc-downloads.js','assets/pc-apps.js','assets/pc-browser.js','assets/pc-explorer.js','assets/pc.js','assets/software-apps.js','cloud-pc/Dockerfile'])assert.ok(!fs.existsSync(path.join(root,f)),'Legacy Linux/mock asset remains: '+f);
-console.log('M-Y-O smoke checks passed: real Windows VM config, isolated persistent guest disk, and no mock desktop.');
+
+const catalog = JSON.parse(read('downloads/software-catalog.json'));
+assert.ok(Array.isArray(catalog.apps) && catalog.apps.length >= 8);
+for (const app of catalog.apps) assert.ok(app.source.startsWith('https://') && app.name);
+for (const id of ['steam','epic','riot','ea','ubisoft','battlenet','gog']) assert.ok(!catalog.apps.some(app => app.id===id),'Game launcher remains: '+id);
+
+for (const file of [
+  'assets/games.js','assets/app.js','assets/styles.css','downloads/games-catalog.json',
+  'downloads/games/apex.url','downloads/games/cs2.url','downloads/games/dota2.url',
+  'downloads/games/fortnite.url','downloads/games/genshin.url','downloads/games/lol.url',
+  'downloads/games/minecraft.url','downloads/games/pubg.url','downloads/games/roblox.url',
+  'downloads/games/trackmania.url','downloads/games/valorant.url','downloads/games/warframe.url',
+  'downloads/apps/steam.url','downloads/apps/epic.url','scripts/bootstrap-cloud-pc.sh'
+]) assert.ok(!fs.existsSync(path.join(root,file)),'Obsolete game/legacy file remains: '+file);
+
+const sw = read('sw.js');
+const match = sw.match(/const CORE = (\\[[\\s\\S]*?\\]);/);
+assert.ok(match,'Service worker core cache list missing');
+for (const item of JSON.parse(match[1])) {
+  const file = item==='/' ? 'index.html' : item.replace(/^\\//,'');
+  assert.ok(fs.existsSync(path.join(root,file)),'Missing cached file '+file);
+}
+console.log('M-Y-O smoke checks passed: Windows VPS portal, protected KVM guest, persistent storage, and no game hub.');
