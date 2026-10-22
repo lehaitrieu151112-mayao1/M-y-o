@@ -62,6 +62,5 @@ e.querySelector('#explorerFileInput')?.addEventListener('change',()=>{});
 refresh(e);
 }
 window.MYOPCExplorer={bind,reset(){rootHandle=null;currentHandle=null;handleStack=[];currentFolder='This PC'},saveToCurrent:async function(name,text){if(!currentHandle)throw new Error('Chưa chọn thư mục thật');const h=await currentHandle.getFileHandle(name,{create:true});const w=await h.createWritable();await w.write(text);await w.close();return h}};
-let currentFolder='This PC';
 window.MYOPCExplorer.getCurrentFolder=()=>currentFolder;
 })();
