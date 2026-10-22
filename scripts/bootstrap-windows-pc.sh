@@ -41,6 +41,7 @@ read_env() {
 }
 ensure_env MYO_PROXY_USER myo
 ensure_secret_env MYO_PROXY_PASSWORD "$(openssl rand -hex 24)"
+ensure_secret_env MYO_MANAGER_TOKEN "$(openssl rand -hex 32)"
 ensure_env MYO_WINDOWS_USER myo
 ensure_secret_env MYO_WINDOWS_PASSWORD "$(openssl rand -hex 24)"
 ensure_env MYO_VM_RAM 16G
@@ -55,9 +56,11 @@ proxy_user="$(read_env MYO_PROXY_USER)"
 proxy_password="$(read_env MYO_PROXY_PASSWORD)"
 windows_user="$(read_env MYO_WINDOWS_USER)"
 windows_password="$(read_env MYO_WINDOWS_PASSWORD)"
+manager_token="$(read_env MYO_MANAGER_TOKEN)"
 [[ "$proxy_user" =~ ^[A-Za-z0-9._-]{1,64}$ ]] || die "MYO_PROXY_USER format invalid."
 [[ "${#proxy_password}" -ge 20 && "$proxy_password" != "REPLACE_WITH_RANDOM_SECRET" ]] || die "MYO_PROXY_PASSWORD is invalid; replace placeholder in .env."
 [[ "${#windows_password}" -ge 16 && "$windows_password" != "REPLACE_WITH_RANDOM_SECRET" ]] || die "MYO_WINDOWS_PASSWORD is invalid; replace placeholder in .env."
+[[ "${#manager_token}" -ge 64 && "$manager_token" != REPLACE_* ]] || die "MYO_MANAGER_TOKEN is invalid; a private random token is required."
 echo "Generating gateway password hash..."
 proxy_hash="$(docker run --rm caddy:2-alpine caddy hash-password --plaintext "$proxy_password" | tail -n1)"
 [[ "$proxy_hash" == '$2'* ]] || die "Could not generate Caddy password hash."
@@ -65,12 +68,14 @@ set_env MYO_PROXY_PASSWORD_HASH "$proxy_hash"
 set_env MYO_DOMAIN "$DOMAIN"
 echo "Validating Compose..."
 docker compose --project-directory "$ROOT" -f "$ROOT/compose.yaml" config --quiet
-echo "Starting Windows VM, HTTPS gateway and persistent disk API..."
+echo "Starting Windows VM, VM manager, HTTPS gateway and persistent disks..."
 docker compose --project-directory "$ROOT" -f "$ROOT/compose.yaml" up -d
 echo
 docker compose --project-directory "$ROOT" -f "$ROOT/compose.yaml" ps
 echo
 echo "Windows VM: https://$DOMAIN"
+echo "PC manager: https://$DOMAIN/manage/"
+echo "For individual PC hostnames, create a wildcard DNS record *.${DOMAIN} pointing to this VPS public IP."
 echo "Gateway user: $proxy_user"
 echo "Gateway password: $proxy_password"
 echo "Windows guest user: $windows_user"
