@@ -15,4 +15,6 @@ jobs:
         with:
           persist-credentials: false
       - name: Check JavaScript and project assets
-        run: node scripts/smoke-test.mjs
+        run: |
+          node scripts/smoke-test.mjs
+          npm --prefix server run check
