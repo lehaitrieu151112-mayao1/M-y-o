@@ -55,7 +55,7 @@ services:
       MYO_DOMAIN: ${MYO_DOMAIN:?Run scripts/bootstrap-windows-pc.sh with domain}
       MYO_PROXY_USER: ${MYO_PROXY_USER:-myo}
       MYO_PROXY_PASSWORD_HASH: ${MYO_PROXY_PASSWORD_HASH:?Run bootstrap to generate hash}
-      MYO_MANAGER_TOKEN: ${MYO_MANAGER_TOKEN:?Run bootstrap to generate manager token}
+      MYO_MANAGER_TOKEN: ${MYO_MANAGER_TOKEN:-}
     volumes:
       - ./cloud-pc/Caddyfile:/etc/caddy/Caddyfile:ro
       - myo_caddy_data:/data
