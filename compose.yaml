@@ -33,7 +33,7 @@ services:
     restart: unless-stopped
     environment:
       MYO_DOMAIN: ${MYO_DOMAIN:?Run scripts/bootstrap-windows-pc.sh first}
-      MYO_MANAGER_TOKEN: ${MYO_MANAGER_TOKEN:?Run scripts/bootstrap-windows-pc.sh first}
+      MYO_MANAGER_TOKEN: ${MYO_MANAGER_TOKEN:-}
       MYO_MAX_PCS: ${MYO_MAX_PCS:-10}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
