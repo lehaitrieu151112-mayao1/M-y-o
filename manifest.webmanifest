@@ -1,27 +1,14 @@
 {
-  "name": "M-Y-O Game Hub — PC Workspace",
-  "short_name": "M-Y-O PC",
-  "description": "Thư viện game PC Windows và desktop workspace tương tác.",
+  "name": "M-Y-O Windows VPS",
+  "short_name": "M-Y-O VPS",
+  "description": "Cổng kết nối Windows VPS cá nhân qua HTTPS.",
   "start_url": "/index.html",
   "scope": "/",
   "display": "standalone",
-  "display_override": [
-    "standalone",
-    "minimal-ui"
-  ],
+  "display_override": ["standalone", "minimal-ui"],
   "background_color": "#080d18",
   "theme_color": "#080d18",
   "lang": "vi",
-  "categories": [
-    "games",
-    "utilities"
-  ],
-  "icons": [
-    {
-      "src": "/assets/app-icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    }
-  ]
+  "categories": ["utilities", "productivity"],
+  "icons": [{"src": "/assets/app-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}]
 }
