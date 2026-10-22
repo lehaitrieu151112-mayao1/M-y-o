@@ -46,36 +46,6 @@ services:
       - myo_caddy_config:/config
     networks: [myo_internal]
 
-  myo-disk-server:
-    build:
-      context: ./server
-    container_name: myo-disk-server
-    restart: unless-stopped
-    ports:
-      - "127.0.0.1:8787:8787"
-    environment:
-      PORT: "8787"
-      NODE_ENV: "production"
-      MYO_DATA_DIR: "/data"
-      MYO_SERVER_TOKEN: ${MYO_SERVER_TOKEN:?Set MYO_SERVER_TOKEN}
-      MYO_CORS_ORIGIN: ${MYO_CORS_ORIGIN:-}
-      MYO_MAX_FILE_BYTES: ${MYO_MAX_FILE_BYTES:-67108864}
-      MYO_DEFAULT_DISK_QUOTA_BYTES: ${MYO_DEFAULT_DISK_QUOTA_BYTES:-1073741824}
-    volumes:
-      - myo_disk_data:/data
-    security_opt:
-      - no-new-privileges:true
-    cap_drop: [ALL]
-    read_only: true
-    tmpfs:
-      - /tmp:size=32m,mode=1777
-    healthcheck:
-      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:'+process.env.PORT+'/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-    networks: [myo_internal]
-
 networks:
   myo_internal:
     driver: bridge
@@ -87,5 +57,3 @@ volumes:
     name: myo_caddy_data
   myo_caddy_config:
     name: myo_caddy_config
-  myo_disk_data:
-    name: myo_disk_data
