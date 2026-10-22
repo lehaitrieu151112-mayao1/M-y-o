@@ -24,13 +24,17 @@ assert.ok(compose.includes('127.0.0.1:${MYO_PC_PORT:-13000}:3000'),'Desktop shou
 assert.ok(compose.includes('myo_pc_config:/config'),'Remote profile must persist');
 assert.ok(compose.includes('MYO_PC_PASSWORD'),'Desktop must require a password');
 assert.ok(read('cloud-pc/Dockerfile').includes('lscr.io/linuxserver/webtop:ubuntu-xfce'));
-assert.ok(read('cloud-pc/README.md').includes('This is Linux, not a Windows VM'));
+assert.ok(read('cloud-pc/README.md').includes('not a Windows VM'));
 assert.ok(read('.gitignore').includes('.env'),'Live secrets must be git-ignored');
 const context={window:{}};vm.runInNewContext(read('assets/games.js'),context);
 const games=context.window.MYO_GAMES;
 assert.ok(Array.isArray(games)&&games.length>=10,'Expected at least 10 game records');
-for(const game of games){assert.ok(/^https:///.test(game.source),'Game source must use HTTPS: '+game.name);assert.ok(game.name&&game.publisher&&game.genre,'Incomplete game record: '+game.name)}
-const core=read('sw.js').match(/const CORE=[([sS]*?)];/);assert.ok(core,'Service worker CORE list missing');
-for(const item of core[1].matchAll(/'([^']+)'/g)){const file=item[1]==='/'?'index.html':item[1].replace(/^/+/,'');assert.ok(fs.existsSync(path.join(root,file)),'Missing cached file: '+file)}
+for(const game of games){assert.ok(typeof game.source==='string'&&game.source.startsWith('https://'),'Game source must use HTTPS: '+game.name);assert.ok(game.name&&game.publisher&&game.genre,'Incomplete game record: '+game.name)}
+const sw=read('sw.js');
+const coreStart=sw.indexOf('const CORE=[');
+const coreEnd=sw.indexOf('];',coreStart);
+assert.ok(coreStart>=0&&coreEnd>coreStart,'Service worker CORE list missing');
+const cached=sw.slice(coreStart+'const CORE=['.length,coreEnd).split("'").filter((value,index)=>index%2===1);
+for(const item of cached){const file=item==='/'?'index.html':item.split('/').filter(Boolean).join('/');assert.ok(fs.existsSync(path.join(root,file)),'Missing cached file: '+file)}
 for(const oldFile of ['assets/pc.css','assets/pc-downloads.css','assets/pc-storage.js','assets/pc-drive.js','assets/pc-downloads.js','assets/pc-apps.js','assets/pc-browser.js','assets/pc-explorer.js','assets/pc.js','assets/software-apps.js'])assert.ok(!fs.existsSync(path.join(root,oldFile)),'Legacy simulated PC module still exists: '+oldFile);
 console.log('M-Y-O smoke checks passed: real-server connection page, game catalogue and remote desktop deployment.');

@@ -11,6 +11,9 @@ command -v openssl >/dev/null 2>&1 || { echo "openssl is required to generate cr
 created_env=0
 if [[ ! -f .env ]]; then
   umask 077
+  puid="$(id -u)"; pgid="$(id -g)"
+  [[ "$puid" != "0" ]] || puid=1000
+  [[ "$pgid" != "0" ]] || pgid=1000
   cat > .env <<EOF
 MYO_SERVER_TOKEN=$(openssl rand -hex 32)
 MYO_CORS_ORIGIN=
@@ -19,8 +22,8 @@ MYO_DEFAULT_DISK_QUOTA_BYTES=1073741824
 MYO_PC_USER=myo
 MYO_PC_PASSWORD=$(openssl rand -hex 24)
 MYO_PC_PORT=13000
-PUID=$(id -u)
-PGID=$(id -g)
+PUID=$puid
+PGID=$pgid
 TZ=Asia/Ho_Chi_Minh
 EOF
   chmod 600 .env
