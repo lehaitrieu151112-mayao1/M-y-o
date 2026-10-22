@@ -21,7 +21,8 @@ M-Y-O is a Vietnamese-first web application with a PC game catalogue and an inte
 - Installable/offline-capable PWA shell via web manifest and service worker.
 
 - `assets/software-apps.js` — official Windows application catalog.
-- `assets/pc-downloads.js` — local download log, `.url` shortcuts, file metadata import and manifest export.
+- `assets/pc-downloads.js` — local download log, `.url` shortcuts, file metadata import/copy and manifest export.
+- `assets/pc-downloads.css` — styling for software catalogue and PC Downloads.
 - `downloads/` — official application/game catalogs and Windows Internet Shortcut files, committed to GitHub.
 
 ## Important capability boundary
