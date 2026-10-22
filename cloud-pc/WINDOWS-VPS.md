@@ -1,6 +1,6 @@
 # M-Y-O Windows VPS (KVM/QEMU)
 
-This stack runs an actual Windows 11 guest VM on a Linux cloud server. The webpage is a connection portal; the Windows operating system and applications run inside the VM, not inside the browser page.
+This stack runs an actual Windows 11 guest VM on a Linux cloud server and starts a host-side manager for additional VMs. The webpage is a connection portal; Windows and applications run inside real VMs, not in a browser simulation.
 
 ## Host requirements
 
@@ -25,9 +25,15 @@ Replace the example hostname with your actual DNS name. The installer checks KVM
 
 Save both credential pairs printed in the remote terminal. The first Windows setup can take 10–40 minutes or longer. Follow logs with `cd /opt/myo-windows-vps && docker compose logs -f windows-vm`.
 
+## Manage additional real PCs
+
+Create a wildcard DNS record such as `*.pc.example.com` pointing to this VPS public IP (assuming the base hostname is `pc.example.com`). Open `https://pc.example.com/manage/`, sign in with the gateway credentials, and submit the PC form. The manager checks current CPU/RAM capacity, creates a Docker Windows container with a separate persistent volume, and adds a per-PC Caddy HTTPS route. Each machine is reachable at its own `https://pc-<id>.pc.example.com/` hostname. The machines all run in this host's region; selecting another region requires another KVM host.
+
+The manager has access to the Docker socket and can create/delete host containers, so its service port is not published to the internet. Caddy authenticates incoming requests and injects the private `MYO_MANAGER_TOKEN` only for requests to the internal manager.
+
 ## Connect and use Windows
 
-Open `https://pc.example.com`, sign in to the gateway, and interact with the actual Windows console in your browser. Windows, browser sessions, installed applications, and downloaded files live on the cloud VM.
+Open `https://pc.example.com`, sign in to the gateway, and interact with the default Windows console in your browser. Managed PCs open from their individual links in the manager. Windows, browser sessions, installed applications, and downloaded files live on the cloud VM.
 
 ## Persistent disk and safety
 
@@ -37,4 +43,5 @@ Open `https://pc.example.com`, sign in to the gateway, and interact with the act
 - Port 8006 stays on Docker's private network; only Caddy's HTTPS gateway is published.
 - Keep `.env` credentials private. Do not commit them.
 - GPU passthrough is not set up. This configuration is a general-purpose remote desktop, not a GPU workstation or multi-tenant provider.
+- Removing a managed PC also deletes its named Windows volume; this permanently deletes its files and installed applications.
 - Use legally licensed Windows media and activation.
