@@ -61,6 +61,6 @@ if(virtual){const item=virtualItems()[Number(virtual.dataset.virtualIndex)];if(!
 e.querySelector('#explorerFileInput')?.addEventListener('change',()=>{});
 refresh(e);
 }
-window.MYOPCExplorer={bind,reset(){rootHandle=null;currentHandle=null;handleStack=[];currentFolder='This PC'},saveToCurrent:async function(name,text){if(!currentHandle)throw new Error('Chưa chọn thư mục thật');const h=await currentHandle.getFileHandle(name,{create:true});const w=await h.createWritable();await w.write(text);await w.close();return h}};
+window.MYOPCExplorer={bind,reset(){rootHandle=null;currentHandle=null;handleStack=[];currentFolder='This PC'},hasCurrentFolder:()=>Boolean(rootHandle&&currentHandle),saveToCurrent:async function(name,text){if(!currentHandle||!rootHandle)throw new Error('Chưa chọn thư mục thật');const h=await currentHandle.getFileHandle(name,{create:true});const w=await h.createWritable();await w.write(text);await w.close();return h},saveFileToCurrent:async function(file){if(!currentHandle||!rootHandle)throw new Error('Mở File Explorer và chọn thư mục thật trước');let h;try{h=await currentHandle.getFileHandle(file.name);if(!confirm('Tệp '+file.name+' đã tồn tại. Ghi đè?'))return false}catch(err){if(err.name==='NotFoundError')h=await currentHandle.getFileHandle(file.name,{create:true});else throw err}const w=await h.createWritable();await w.write(file);await w.close();return h}};
 window.MYOPCExplorer.getCurrentFolder=()=>currentFolder;
 })();
