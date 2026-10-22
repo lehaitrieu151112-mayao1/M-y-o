@@ -3,5 +3,18 @@ pc.example.com {
     basic_auth {
         myo REPLACE_WITH_CADDY_BCRYPT_HASH
     }
-    reverse_proxy windows-vm:8006
+    handle_path /api/* {
+        reverse_proxy pc-manager:3000 {
+            header_up X-MYO-Manager-Token REPLACE_WITH_PRIVATE_RANDOM_TOKEN
+        }
+    }
+    handle_path /manage/* {
+        reverse_proxy pc-manager:3000 {
+            header_up X-MYO-Manager-Token REPLACE_WITH_PRIVATE_RANDOM_TOKEN
+        }
+    }
+    handle {
+        reverse_proxy windows-vm:8006
+    }
 }
+import /etc/caddy/sites/*.caddy
