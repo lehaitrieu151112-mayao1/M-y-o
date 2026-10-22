@@ -1,9 +1,9 @@
 # Contributing
 
-1. Keep the catalogue PC-Windows focused.
-2. Use official publisher/store URLs; do not link to pirated installers, cracked executables, or suspicious mirrors.
+1. Keep the project focused on a secure, general-purpose Windows VPS connection portal.
+2. Keep deployment scripts explicit about real host prerequisites and do not imply GitHub/Vercel provides CPU, RAM or a VM.
 3. Keep UI behavior accessible: semantic buttons, labels for controls, keyboard focus and clear feedback.
-4. Label browser-side simulation as simulation. Do not call profile metadata an actual VPS resource.
-5. Keep client-side file access behind an explicit file/directory picker.
-6. Update `docs/FILE-MAP.md` and `CHANGELOG.md` when adding or moving app modules.
-7. Run `node scripts/smoke-test.mjs` before submitting changes.
+4. Keep passwords, tokens and private configuration out of commits.
+5. Do not mount host or client user folders into the Windows guest.
+6. Update `docs/FILE-MAP.md` and `CHANGELOG.md` when adding or moving modules.
+7. Run `node scripts/smoke-test.mjs` and `npm --prefix server run check` before submitting changes.
