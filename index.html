@@ -34,34 +34,24 @@ a{color:#a9cdff}button,input{font:inherit}.shell{width:min(1120px,calc(100% - 32
     </div>
   </div>
   <section class="panel" aria-labelledby="connect-title">
-    <h2 id="connect-title">Kết nối VPS</h2><p class="sub">Nhập domain HTTPS của máy chủ đã triển khai.</p>
-    <form id="connectForm"><label class="label" for="endpoint">Địa chỉ VPS Windows</label><div class="form-row"><input id="endpoint" type="url" placeholder="https://pc.tenmiencuaban.com" autocomplete="url" spellcheck="false" required><button class="btn primary" type="submit">Kết nối →</button></div></form>
+    <h2 id="connect-title">VPS thật</h2><p class="sub">Nhập domain HTTPS của máy chủ đã triển khai.</p>
+    <form id="connectForm"><label class="label" for="endpoint">Địa chỉ VPS Windows</label><div class="form-row"><input id="endpoint" type="url" placeholder="https://pc.tenmiencuaban.com" autocomplete="url" spellcheck="false" required><button class="btn primary" type="submit">Quản lý PC →</button></div></form>
     <div id="connectStatus" class="status" role="status" aria-live="polite">Chưa có máy chủ được kết nối. Cần triển khai Windows VM trên host có KVM trước.</div>
     <p class="sub" style="margin:14px 0 0">Địa chỉ được lưu trong trình duyệt hiện tại; không nhập mật khẩu vào ô này.</p>
   </section>
 </section>
 <section class="pc-manager" id="pcManager" aria-labelledby="pcManagerTitle">
   <div class="pc-manager-head">
-    <div><h2 id="pcManagerTitle">Máy tính của tôi</h2><p>Cấu hình mỗi máy riêng; bấm “Thêm PC” để mở form cho đúng một máy mới.</p></div>
-    <button class="btn primary" id="addPcBtn" type="button">＋ Thêm PC</button>
+    <div><h2 id="pcManagerTitle">Quản lý PC Windows thật</h2><p>Mở trang quản lý được phục vụ từ chính VPS KVM của bạn.</p></div>
+    <button class="btn primary" id="addPcBtn" type="button">＋ Thêm PC thật</button>
   </div>
-  <form class="pc-editor" id="pcEditor" hidden>
-    <h3 id="pcEditorTitle">Cấu hình PC mới</h3>
-    <p class="sub">Chọn cấu hình mong muốn rồi lưu lại.</p>
-    <div class="pc-editor-grid">
-      <div class="pc-field"><label for="pcName">Tên PC</label><input id="pcName" maxlength="48" required placeholder="PC của tôi"></div>
-      <div class="pc-field"><label for="pcOs">Hệ điều hành</label><select id="pcOs"><option value="Windows 11">Windows 11</option><option value="Windows 11 Pro">Windows 11 Pro</option><option value="Windows Server 2022">Windows Server 2022</option></select></div>
-      <div class="pc-field"><label for="pcCpu">CPU ảo</label><select id="pcCpu"><option value="2">2 vCPU</option><option value="4">4 vCPU</option><option value="6" selected>6 vCPU</option><option value="8">8 vCPU</option><option value="12">12 vCPU</option><option value="16">16 vCPU</option></select></div>
-      <div class="pc-field"><label for="pcRam">RAM</label><select id="pcRam"><option value="4">4 GB</option><option value="8">8 GB</option><option value="16" selected>16 GB</option><option value="24">24 GB</option><option value="32">32 GB</option><option value="64">64 GB</option></select></div>
-      <div class="pc-field"><label for="pcDisk">Ổ đĩa</label><select id="pcDisk"><option value="64">64 GB SSD</option><option value="128">128 GB SSD</option><option value="256" selected>256 GB SSD</option><option value="512">512 GB SSD</option><option value="1024">1 TB SSD</option></select></div>
-      <div class="pc-field"><label for="pcRegion">Vùng máy chủ</label><select id="pcRegion"><option value="Singapore">Singapore</option><option value="Japan">Nhật Bản</option><option value="US">Hoa Kỳ</option><option value="Europe">Châu Âu</option></select></div>
-    </div>
-    <div class="pc-editor-actions"><button class="btn primary" id="savePcBtn" type="submit">Lưu cấu hình PC</button><button class="btn secondary" id="cancelPcBtn" type="button">Hủy</button></div>
-    <p class="pc-editor-note">Thông số này được lưu thành bản cấu hình trên trình duyệt. Máy ảo Windows thật chỉ được tạo khi có API cấp phát kết nối với máy chủ cloud KVM.</p>
-  </form>
-  <div class="pc-list" id="pcList"><div class="pc-empty">Chưa có cấu hình PC. Bấm “Thêm PC” để cấu hình máy đầu tiên.</div></div>
-  <div class="pc-manager-banner"><b>Trạng thái thật:</b> trang web không tự giả lập hệ điều hành. Các bản cấu hình chưa tiêu thụ tài nguyên máy chủ và không được tính là máy ảo đang chạy; cần backend quản lý VM trên host cloud để cấp phát Windows thật.</div>
+  <div class="panel">
+    <p class="sub">Danh sách máy, cấu hình CPU/RAM/SSD, nút bật/tắt và desktop Windows phải lấy trực tiếp từ backend trên máy chủ. Website này không tạo thẻ PC giả trong trình duyệt.</p>
+    <div class="status" id="pcManagerStatus" role="status" aria-live="polite">Chưa kết nối máy chủ quản lý VM. Nhập địa chỉ HTTPS của VPS KVM ở khung “Kết nối VPS” phía trên.</div>
+    <p class="pc-editor-note">Khi backend được cài trên VPS, mỗi lần bấm “Thêm PC thật” sẽ mở bảng quản lý máy chủ để tạo đúng một Windows VM riêng. Mỗi VM cần CPU/RAM/SSD còn trống và bản ghi DNS wildcard cho địa chỉ desktop riêng.</p>
+  </div>
 </section>
+
 <section class="section">
   <h2>Chuẩn bị máy chủ thật</h2>
   <div class="requirements">
@@ -95,7 +85,7 @@ form.addEventListener('submit',event=>{
     if(!['https:','http:'].includes(parsed.protocol)||parsed.username||parsed.password||parsed.pathname!=='/'||parsed.search||parsed.hash||(parsed.protocol==='http:'&&!local))throw new Error('invalid');
     url=parsed.href.replace(/\/$/,'');
   }catch{status.textContent='Địa chỉ chưa hợp lệ. Dùng domain HTTPS, ví dụ https://pc.tenmiencuaban.com.';return;}
-  localStorage.setItem(KEY,url);status.textContent='Đang mở cổng kết nối...';location.assign(url);
+  localStorage.setItem(KEY,url);status.textContent='Đang mở cổng kết nối...';location.assign(url + '/manage/');
 });
 })();
 </script>
@@ -103,68 +93,18 @@ form.addEventListener('submit',event=>{
 <script>
 (()=> {
   'use strict';
-  const STORE_KEY='myo_pc_configurations_v1';
-  const $=id=>document.getElementById(id);
-  const editor=$('pcEditor'), list=$('pcList'), add=$('addPcBtn'), form=$('pcEditor');
-  let editingId=null;
-  let pcs=[];
-  try {
-    const data=JSON.parse(localStorage.getItem(STORE_KEY)||'[]');
-    if(Array.isArray(data)) pcs=data.filter(p=>p&&typeof p.id==='string'&&typeof p.name==='string').slice(0,100);
-  } catch { pcs=[]; }
-  function escapeHtml(value){
-    return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  }
-  function persist(){localStorage.setItem(STORE_KEY,JSON.stringify(pcs));}
-  function openEditor(pc=null){
-    editingId=pc?.id||null;
-    form.reset();
-    $('pcEditorTitle').textContent=pc?'Chỉnh sửa cấu hình PC':'Cấu hình PC mới';
-    $('pcName').value=pc?.name||'PC '+(pcs.length+1);
-    $('pcOs').value=pc?.os||'Windows 11';
-    $('pcCpu').value=String(pc?.cpu||6);
-    $('pcRam').value=String(pc?.ram||16);
-    $('pcDisk').value=String(pc?.disk||256);
-    $('pcRegion').value=pc?.region||'Singapore';
-    editor.hidden=false;
-    editor.scrollIntoView({behavior:'smooth',block:'center'});
-    $('pcName').focus();
-  }
-  function render(){
-    if(!pcs.length){
-      list.innerHTML='<div class="pc-empty">Chưa có cấu hình PC. Bấm “Thêm PC” để cấu hình máy đầu tiên.</div>';
+  const button=document.getElementById('addPcBtn');
+  const status=document.getElementById('pcManagerStatus');
+  const endpoint=document.getElementById('endpoint');
+  button.addEventListener('click',()=>{
+    const saved=localStorage.getItem('myo_cloud_pc_endpoint_v1');
+    if(!saved){
+      status.textContent='Chưa biết địa chỉ VPS thật. Nhập domain HTTPS ở khung trên rồi bấm “Quản lý PC”.';
+      endpoint.focus();
       return;
     }
-    list.innerHTML=pcs.map((p,i)=>'<article class="pc-card" data-pc-id="'+escapeHtml(p.id)+'"><div class="pc-card-top"><div class="pc-card-icon">🖥️</div><div><h3>'+escapeHtml(p.name)+'</h3><small>Cấu hình #'+(i+1)+' · '+escapeHtml(p.os)+'</small></div></div><div class="pc-specs"><div class="pc-spec"><b>'+Number(p.cpu)+' vCPU</b><span>CPU</span></div><div class="pc-spec"><b>'+Number(p.ram)+' GB</b><span>RAM</span></div><div class="pc-spec"><b>'+escapeHtml(Number(p.disk)>=1024?(Number(p.disk)/1024)+' TB':p.disk+' GB')+'</b><span>SSD</span></div></div><div class="pc-state">Chưa cấp phát — chỉ là cấu hình lưu cục bộ</div><div class="pc-card-actions"><button class="btn secondary" type="button" data-action="edit">Sửa cấu hình</button><button class="btn secondary" type="button" data-action="delete">Xóa cấu hình</button></div></article>').join('');
-  }
-  add.addEventListener('click',()=>openEditor());
-  $('cancelPcBtn').addEventListener('click',()=>{editor.hidden=true;editingId=null;});
-  form.addEventListener('submit',event=>{
-    event.preventDefault();
-    const name=$('pcName').value.trim();
-    if(!name){$('pcName').focus();return;}
-    const config={
-      id:editingId||((typeof crypto!=='undefined'&&crypto.randomUUID)?crypto.randomUUID():'pc-'+Date.now()+'-'+Math.random().toString(16).slice(2)),
-      name:name.slice(0,48),os:$('pcOs').value,cpu:Number($('pcCpu').value),
-      ram:Number($('pcRam').value),disk:Number($('pcDisk').value),region:$('pcRegion').value,
-      status:'configuration-only',createdAt:editingId?(pcs.find(p=>p.id===editingId)?.createdAt||new Date().toISOString()):new Date().toISOString()
-    };
-    if(editingId){pcs=pcs.map(p=>p.id===editingId?config:p);}
-    else {pcs.push(config);}
-    try{persist();}catch{alert('Không thể lưu cấu hình. Bộ nhớ trình duyệt có thể đã đầy.');return;}
-    editor.hidden=true;editingId=null;render();
+    location.assign(saved.replace(/\/$/,'')+'/manage/');
   });
-  list.addEventListener('click',event=>{
-    const button=event.target.closest('button[data-action]');
-    if(!button)return;
-    const card=button.closest('[data-pc-id]');if(!card)return;
-    const pc=pcs.find(item=>item.id===card.dataset.pcId);if(!pc)return;
-    if(button.dataset.action==='edit')openEditor(pc);
-    if(button.dataset.action==='delete'&&confirm('Xóa cấu hình "'+pc.name+'"?')){
-      pcs=pcs.filter(item=>item.id!==pc.id);persist();render();
-    }
-  });
-  render();
 })();
 </script>
 
