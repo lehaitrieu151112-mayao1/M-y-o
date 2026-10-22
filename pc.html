@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080e1c">
+<title>M-Y-O Virtual PC</title>
+<link rel="stylesheet" href="assets/pc.css">
+</head>
+<body>
+<section id="setupPage" class="setup-shell">
+  <header class="setup-top">
+    <a class="brand" href="index.html"><span class="brand-logo">MYO</span><span>M-Y-O VIRTUAL PC<small>PC WORKSPACE · GAME HUB</small></span></a>
+    <div class="top-actions"><span class="tag">BẢN MÔ PHỎNG MIỄN PHÍ</span><a class="quiet-link" href="index.html">← Thư viện game</a></div>
+  </header>
+  <section class="setup-hero">
+    <div class="eyebrow">PC PROVISIONING</div>
+    <h1>Tạo PC của bạn.</h1>
+    <p>Chọn cấu hình giống trang tạo VPS, nhấn khởi chạy và vào ngay desktop có Google Chrome, File Explorer, Cài đặt, Task Manager và Game Hub. Không cần nhập tên game hoặc URL để tạo PC.</p>
+    <div class="hero-badges"><span>🖥️ Windows profile</span><span>⚙️ CPU · GPU · RAM · SSD</span><span>🌐 Chrome-like browser</span><span>⛶ Full screen</span></div>
+  </section>
+  <div class="setup-layout">
+    <section class="setup-card">
+      <div class="card-heading"><span class="emoji">🛠️</span><div><h2>Cấu hình PC</h2><p>Thay đổi cấu hình để lập hồ sơ PC. Tên máy được đặt tự động.</p></div></div>
+      <div class="field-grid">
+        <div class="field"><label for="cfgOs">Hệ điều hành</label><select id="cfgOs"><option value="Windows 11 Pro" selected>Windows 11 Pro</option><option value="Windows 10 Pro">Windows 10 Pro</option></select></div>
+        <div class="field"><label for="cfgRegion">Vùng máy chủ (dự kiến)</label><select id="cfgRegion"><option value="Singapore" selected>Singapore · Châu Á</option><option value="Tokyo">Tokyo · Nhật Bản</option><option value="Frankfurt">Frankfurt · Đức</option><option value="Virginia">Virginia · Hoa Kỳ</option></select></div>
+        <div class="field"><label for="cfgCpu">CPU / vCPU</label><select id="cfgCpu"><option value="4">4 vCPU · Cơ bản</option><option value="6">6 vCPU · Cân bằng</option><option value="8" selected>8 vCPU · Hiệu năng</option><option value="12">12 vCPU · Cao</option><option value="16">16 vCPU · Enthusiast</option></select></div>
+        <div class="field"><label for="cfgGpu">GPU profile</label><select id="cfgGpu"><option value="integrated">Đồ họa tích hợp</option><option value="gtx1660">GTX 1660 · mô phỏng</option><option value="rtx3060">RTX 3060 · mô phỏng</option><option value="rtx4070" selected>RTX 4070 · mô phỏng</option><option value="rtx4090">RTX 4090 · mô phỏng</option></select><span class="help">Hồ sơ hiển thị, chưa cấp GPU thật.</span></div>
+        <div class="field"><label for="cfgRam">RAM</label><select id="cfgRam"><option value="8">8 GB</option><option value="16" selected>16 GB</option><option value="32">32 GB</option><option value="64">64 GB</option></select></div>
+        <div class="field"><label for="cfgDisk">SSD mô phỏng</label><select id="cfgDisk"><option value="128">128 GB</option><option value="256">256 GB</option><option value="512" selected>512 GB</option><option value="1024">1 TB</option><option value="2048">2 TB</option></select></div>
+        <div class="field"><label for="cfgResolution">Độ phân giải</label><select id="cfgResolution"><option value="1280x720">1280 × 720</option><option value="1920x1080" selected>1920 × 1080</option><option value="2560x1440">2560 × 1440</option><option value="3840x2160">3840 × 2160</option></select></div>
+        <div class="field"><label for="cfgQuality">Chất lượng đồ họa mặc định</label><select id="cfgQuality"><option value="medium">Trung bình</option><option value="high" selected>Cao</option><option value="ultra">Ultra</option></select></div>
+      </div>
+      <div class="setup-actions"><button class="primary" id="launchPcBtn" type="button">Tạo PC & khởi chạy →</button><button class="secondary" id="resetSetupBtn" type="button">Khôi phục mặc định</button></div>
+      <div class="feedback" id="setupFeedback" aria-live="polite"></div>
+    </section>
+    <aside class="setup-card">
+      <div class="card-heading"><span class="emoji">📋</span><div><h2>Tóm tắt cấu hình</h2><p>Cập nhật trực tiếp khi đổi lựa chọn.</p></div></div>
+      <div class="summary-list">
+        <div class="summary-line"><span>Hệ điều hành</span><strong id="sumOs">Windows 11 Pro</strong></div>
+        <div class="summary-line"><span>CPU</span><strong id="sumCpu">8 vCPU</strong></div>
+        <div class="summary-line"><span>GPU</span><strong id="sumGpu">RTX 4070</strong></div>
+        <div class="summary-line"><span>RAM</span><strong id="sumRam">16 GB</strong></div>
+        <div class="summary-line"><span>SSD</span><strong id="sumDisk">512 GB</strong></div>
+        <div class="summary-line"><span>Độ phân giải</span><strong id="sumRes">1920 × 1080</strong></div>
+        <div class="summary-line"><span>Vùng</span><strong id="sumRegion">Singapore</strong></div>
+      </div>
+      <div class="price-block"><strong>0₫</strong><span>Miễn phí cho demo giao diện. Không tạo máy chủ thuê từ nút này.</span></div>
+      <h3 class="saved-title">PC đã lưu</h3>
+      <div class="instances" id="savedInstances"><div class="empty-state">Chưa có PC nào được lưu.</div></div>
+      <div class="warning">Minh bạch: đây là desktop mô phỏng trong trình duyệt, chưa phải VPS Windows đang chạy thật. Nó không cấp GPU/RAM/SSD và không chạy game Windows trực tiếp. Cloud gaming thật cần máy chủ có GPU; chi phí sẽ được xác nhận trước khi triển khai.</div>
+    </aside>
+  </div>
+</section>
+
+<main id="desktopShell" class="hidden" data-wallpaper="default" aria-label="M-Y-O Virtual PC desktop">
+  <div class="desktop-wallpaper"></div>
+  <div class="desktop-topline"><span id="desktopMachineLabel">MYO-PC-01 · DESKTOP</span><span id="desktopClockTop">DESKTOP SESSION</span></div>
+  <div class="desktop-icons">
+    <button class="desktop-icon" data-open-app="chrome"><span class="glyph chrome-mark"></span><span>Google Chrome</span></button>
+    <button class="desktop-icon" data-open-app="explorer"><span class="glyph">📁</span><span>File Explorer</span></button>
+    <button class="desktop-icon" data-open-app="settings"><span class="glyph">⚙️</span><span>Cài đặt</span></button>
+    <button class="desktop-icon" data-open-app="taskmgr"><span class="glyph">📊</span><span>Task Manager</span></button>
+    <button class="desktop-icon" data-open-app="games"><span class="glyph">🎮</span><span>Game Hub</span></button>
+    <button class="desktop-icon" data-open-app="thispc"><span class="glyph">💻</span><span>This PC</span></button>
+    <button class="desktop-icon" data-open-app="notepad"><span class="glyph">📝</span><span>Notepad</span></button>
+    <button class="desktop-icon" data-open-app="recycle"><span class="glyph">🗑️</span><span>Recycle Bin</span></button>
+  </div>
+  <div id="windowLayer"></div>
+  <section id="startMenu" class="start-menu" hidden>
+    <div class="start-head"><strong>⊞ MYO PC · Start</strong><span id="startProfile">PC đang chạy</span></div>
+    <input id="startSearch" class="start-search" placeholder="Tìm ứng dụng hoặc game..." aria-label="Tìm ứng dụng">
+    <div id="startGrid" class="start-grid">
+      <button data-open-app="chrome"><span class="glyph chrome-mark"></span>Google Chrome</button>
+      <button data-open-app="explorer"><span class="glyph">📁</span>File Explorer</button>
+      <button data-open-app="settings"><span class="glyph">⚙️</span>Cài đặt</button>
+      <button data-open-app="taskmgr"><span class="glyph">📊</span>Task Manager</button>
+      <button data-open-app="games"><span class="glyph">🎮</span>Game Hub</button>
+      <button data-open-app="thispc"><span class="glyph">💻</span>This PC</button>
+      <button data-open-app="notepad"><span class="glyph">📝</span>Notepad</button>
+      <button data-open-app="recycle"><span class="glyph">🗑️</span>Recycle Bin</button>
+      <button data-open-app="about"><span class="glyph">ℹ️</span>About PC</button>
+    </div>
+    <div class="start-foot"><span id="startMachine">MYO-PC-01</span><button class="mini-button" id="shutdownBtn" type="button">Tắt phiên PC</button></div>
+  </section>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <footer class="taskbar">
+    <button class="start-button" id="startButton" title="Start">⊞</button>
+    <input class="taskbar-search" id="taskSearch" placeholder="Tìm kiếm" aria-label="Tìm kiếm ứng dụng">
+    <span class="taskbar-divider hide-mobile"></span>
+    <div class="taskbar-apps" id="taskbarApps"></div>
+    <span class="taskbar-spacer"></span>
+    <button id="taskbarFullscreen" title="Toàn màn hình desktop">⛶</button>
+    <button id="taskbarChrome" title="Google Chrome"><span class="chrome-mark small-chrome"></span></button>
+    <div class="taskbar-clock" id="taskbarClock">--:--<br>--/--</div>
+  </footer>
+</main>
+<script src="assets/games.js"></script>
+<script src="assets/pc.js"></script>
+</body>
+</html>
