@@ -20,7 +20,8 @@
 - `sw.js` — cache-first app shell for offline reopening.
 
 - `assets/software-apps.js` — official Windows software pages and launcher catalog.
-- `assets/pc-downloads.js` — PC Downloads records, shortcut creation, metadata import and JSON manifest export.
+- `assets/pc-downloads.js` — PC Downloads records, shortcut creation, metadata import/copy and JSON manifest export.
+- `assets/pc-downloads.css` — styling for software catalogue and download records.
 - `downloads/software-catalog.json` and `downloads/games-catalog.json` — GitHub catalog snapshots.
 - `downloads/apps/*.url` and `downloads/games/*.url` — Windows Internet Shortcut files that open official sources.
 
