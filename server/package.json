@@ -1,0 +1,12 @@
+{
+  "name": "myo-virtual-disk-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Self-hosted persistent file storage API for M-Y-O virtual PC disks",
+  "scripts": {
+    "start": "node index.mjs",
+    "check": "node --check index.mjs && node --test test/*.test.mjs"
+  },
+  "engines": {"node": ">=22"}
+}
