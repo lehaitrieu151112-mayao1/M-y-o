@@ -19,6 +19,11 @@
 - `manifest.webmanifest` — installable web app metadata.
 - `sw.js` — cache-first app shell for offline reopening.
 
+- `assets/software-apps.js` — official Windows software pages and launcher catalog.
+- `assets/pc-downloads.js` — PC Downloads records, shortcut creation, metadata import and JSON manifest export.
+- `downloads/software-catalog.json` and `downloads/games-catalog.json` — GitHub catalog snapshots.
+- `downloads/apps/*.url` and `downloads/games/*.url` — Windows Internet Shortcut files that open official sources.
+
 ## Documentation and checks
 - `docs/USAGE.md` — how to try the app and understand each operation.
 - `docs/REAL-VPS-ROADMAP.md` — requirements to move from local simulation to a real remote PC.
