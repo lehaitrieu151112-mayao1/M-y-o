@@ -26,12 +26,27 @@ services:
       - myo_windows_storage:/storage
     networks: [myo_internal]
 
+  pc-manager:
+    build:
+      context: ./cloud-pc/manager
+    container_name: myo-pc-manager
+    restart: unless-stopped
+    environment:
+      MYO_DOMAIN: ${MYO_DOMAIN:?Run scripts/bootstrap-windows-pc.sh first}
+      MYO_MANAGER_TOKEN: ${MYO_MANAGER_TOKEN:?Run scripts/bootstrap-windows-pc.sh first}
+      MYO_MAX_PCS: ${MYO_MAX_PCS:-10}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - myo_caddy_sites:/sites
+    networks: [myo_internal]
+
   caddy:
     image: caddy:2-alpine
     container_name: myo-windows-gateway
     restart: unless-stopped
     depends_on:
       - windows-vm
+      - pc-manager
     ports:
       - "80:80"
       - "443:443"
@@ -40,14 +55,17 @@ services:
       MYO_DOMAIN: ${MYO_DOMAIN:?Run scripts/bootstrap-windows-pc.sh with domain}
       MYO_PROXY_USER: ${MYO_PROXY_USER:-myo}
       MYO_PROXY_PASSWORD_HASH: ${MYO_PROXY_PASSWORD_HASH:?Run bootstrap to generate hash}
+      MYO_MANAGER_TOKEN: ${MYO_MANAGER_TOKEN:?Run bootstrap to generate manager token}
     volumes:
       - ./cloud-pc/Caddyfile:/etc/caddy/Caddyfile:ro
       - myo_caddy_data:/data
       - myo_caddy_config:/config
+      - myo_caddy_sites:/etc/caddy/sites:ro
     networks: [myo_internal]
 
 networks:
   myo_internal:
+    name: myo_internal
     driver: bridge
 
 volumes:
@@ -57,3 +75,5 @@ volumes:
     name: myo_caddy_data
   myo_caddy_config:
     name: myo_caddy_config
+  myo_caddy_sites:
+    name: myo_caddy_sites
