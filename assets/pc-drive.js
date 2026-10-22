@@ -7,7 +7,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 function cleanName(raw){const s=String(raw||'').trim().replace(/[\\/:*?"<>|\0]/g,'-').replace(/[. ]+$/,'').slice(0,180);if(!s||s==='.'||s==='..')throw new Error('Tên tệp/thư mục không hợp lệ');return s}
 function cleanPath(raw='C:'){
  let p=String(raw||'C:').replace(/\\/g,'/').trim();
- if(p==='C:'||/^C:/?$/i.test(p)||p==='/')return 'C:';
+ if(p==='C:'||/^C:\\/?$/i.test(p)||p==='/')return 'C:';
  p=p.replace(/^\/+/, '');
  if(/^C:/i.test(p))p=p.slice(2);
  const parts=p.split('/').filter(Boolean);
