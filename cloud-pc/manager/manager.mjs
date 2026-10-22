@@ -2,6 +2,7 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import dns from 'node:dns/promises';
 
 const PORT = 3000;
 const DOMAIN = String(process.env.MYO_DOMAIN || '').toLowerCase();
@@ -182,6 +183,7 @@ const app = http.createServer(async (req, res) => {
       const sitePath = path.join(SITES, id + '.caddy');
       const password = crypto.randomBytes(18).toString('base64url');
       try {
+        await dns.lookup('pc-' + id + '.' + DOMAIN).catch(() => { throw new Error('Wildcard DNS is missing. Create a DNS record *. ' + DOMAIN + ' pointing to this VPS, then retry.'); });
         await docker('POST', '/images/create?fromImage=dockurr%2Fwindows&tag=latest', undefined, 900000);
         await docker('POST', '/volumes/create', { Name: volume, Labels: { 'myo.managed': 'true', 'myo.pc_id': id } });
         const labels = {
