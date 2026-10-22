@@ -24,3 +24,11 @@ In Chrome/Edge, open the site over HTTPS and use the browser's install-app optio
 
 ## Data and privacy
 Profiles, recent links and notes use local storage in the current browser profile. Local files are accessed only after the user selects them and grants permission. Do not select a folder containing sensitive data unless you intend to grant the site access to it.
+
+
+## 5. Applications and downloads
+Open **Ứng dụng có sẵn** for official pages for Steam, Epic Games Launcher, Riot Client, Discord, VLC, 7-Zip, OBS Studio and other Windows software. The in-browser Chrome workspace is available immediately; external Windows apps must be downloaded and installed on a real Windows system.
+
+When you click **Trang tải** or **Nguồn tải**, M-Y-O records that you requested/opened a source page in local browser storage, then opens the official source. This is not proof that the installer downloaded successfully. After a real installer has downloaded, open PC Downloads and choose **Nhập tệp đã tải từ PC thật** to record the filename, type and size; the file stays where Windows/Chrome saved it.
+
+To view real files in Explorer, select **Chọn thư mục thật** and grant permission to the Windows Downloads folder. Press Refresh after another tab downloads something. You can save a `.url` shortcut/JSON manifest into the selected real directory. GitHub contains the shared catalogue and official URL shortcuts; actual installers and per-user logs are not automatically pushed to the repository. Export `myo-download-manifest.json` and upload that metadata file manually to GitHub if you want to keep it there.
